@@ -1,4 +1,4 @@
-package com.quarkus.service;
+package com.quarkus.service.impl;
 
 import com.quarkus.entity.CredentialEntity;
 import com.quarkus.entity.UserEntity;
@@ -10,6 +10,7 @@ import com.quarkus.model.UserDetail;
 import com.quarkus.repository.CredentialsRepository;
 import com.quarkus.repository.UserRepository;
 import com.quarkus.security.PasswordEncoder;
+import com.quarkus.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

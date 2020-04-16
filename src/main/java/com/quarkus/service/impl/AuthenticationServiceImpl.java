@@ -1,9 +1,11 @@
-package com.quarkus.service;
+package com.quarkus.service.impl;
 
 import com.quarkus.exception.BusinessLogicAuthException;
 import com.quarkus.exception.ErrorMessage;
 import com.quarkus.model.Credential;
 import com.quarkus.security.TokenGenerator;
+import com.quarkus.service.AuthenticationService;
+import com.quarkus.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

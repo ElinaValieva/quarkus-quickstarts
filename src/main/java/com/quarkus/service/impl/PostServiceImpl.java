@@ -1,4 +1,4 @@
-package com.quarkus.service;
+package com.quarkus.service.impl;
 
 import com.quarkus.entity.PostEntity;
 import com.quarkus.entity.UserEntity;
@@ -7,9 +7,11 @@ import com.quarkus.exception.ErrorMessage;
 import com.quarkus.model.Post;
 import com.quarkus.repository.PostRepository;
 import com.quarkus.repository.UserRepository;
+import com.quarkus.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 import static com.quarkus.util.ModelMapper.mapPostEntitiesToPost;
@@ -20,6 +22,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final SecurityContext securityContext;
 
     @Override
     public Long createPost(Post post, Long id) {
@@ -40,6 +43,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getUserPosts(Long id) {
+        String name = securityContext.getUserPrincipal().getName();
+        System.out.println(name);
         // todo
         List<PostEntity> postEntities = postRepository.findAllById(id);
         return mapPostEntitiesToPost(postEntities);
