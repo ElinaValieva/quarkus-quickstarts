@@ -13,7 +13,10 @@ dependencies {
     implementation 'io.quarkus:quarkus-openshift'
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-resteasy'
+    implementation 'io.quarkus:quarkus-spring-data-jpa'
+    implementation 'io.quarkus:quarkus-jdbc-h2'
     implementation 'org.jboss.resteasy:resteasy-jackson2-provider:3.0.19.Final'
+    implementation 'com.h2database:h2:1.4.199'
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
