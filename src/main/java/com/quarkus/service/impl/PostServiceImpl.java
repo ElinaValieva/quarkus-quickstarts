@@ -22,7 +22,6 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final SecurityContext securityContext;
 
     @Override
     public Long createPost(Post post, Long id) {
@@ -43,8 +42,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getUserPosts(Long id) {
-        String name = securityContext.getUserPrincipal().getName();
-        System.out.println(name);
         // todo
         List<PostEntity> postEntities = postRepository.findAllById(id);
         return mapPostEntitiesToPost(postEntities);
