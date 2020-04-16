@@ -1,7 +1,7 @@
 package com.quarkus.repository;
 
-import com.quarkus.entity.User;
+import com.quarkus.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<UserEntity, Long> {
 }

@@ -13,14 +13,14 @@ import javax.persistence.OneToOne;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class CommentEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @OneToOne
-    private User user;
+    private UserEntity userEntity;
 
     private String comment;
 }

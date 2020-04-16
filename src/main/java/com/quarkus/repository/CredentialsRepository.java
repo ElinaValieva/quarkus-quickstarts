@@ -1,9 +1,9 @@
 package com.quarkus.repository;
 
-import com.quarkus.entity.Credentials;
+import com.quarkus.entity.CredentialEntity;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CredentialsRepository extends CrudRepository<Credentials, Long> {
+public interface CredentialsRepository extends CrudRepository<CredentialEntity, Long> {
 
-    Credentials findByUsername(String username);
+    CredentialEntity findByUsername(String username);
 }

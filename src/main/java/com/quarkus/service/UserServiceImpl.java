@@ -1,7 +1,7 @@
 package com.quarkus.service;
 
-import com.quarkus.entity.Credentials;
-import com.quarkus.entity.User;
+import com.quarkus.entity.CredentialEntity;
+import com.quarkus.entity.UserEntity;
 import com.quarkus.exception.BusinessLogicException;
 import com.quarkus.exception.ErrorMessage;
 import com.quarkus.model.UserDetail;
@@ -19,19 +19,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserDetail userDetail) {
-        Credentials credentials = credentialsRepository.findByUsername(userDetail.getUserName());
+        CredentialEntity credentialEntity = credentialsRepository.findByUsername(userDetail.getUserName());
 
-        if (credentials != null)
+        if (credentialEntity != null)
             throw new BusinessLogicException(ErrorMessage.USERNAME_NOT_UNIQUE);
 
-        credentials = credentialsRepository.save(Credentials.builder()
-                                                            .username(userDetail.getUserName())
-                                                            .password(userDetail.getPassword())
-                                                            .build());
-        userRepository.save(User.builder()
-                                .name(userDetail.getFirstName())
-                                .lastName(userDetail.getLastName())
-                                .credentials(credentials)
-                                .build());
+        credentialEntity = credentialsRepository.save(CredentialEntity.builder()
+                                                                      .username(userDetail.getUserName())
+                                                                      .password(userDetail.getPassword())
+                                                                      .build());
+        userRepository.save(UserEntity.builder()
+                                      .name(userDetail.getFirstName())
+                                      .lastName(userDetail.getLastName())
+                                      .credentialEntity(credentialEntity)
+                                      .build());
     }
 }
