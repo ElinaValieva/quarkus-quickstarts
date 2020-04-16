@@ -1,4 +1,4 @@
-# blog project
+# Quarkus Blog project ![Java CI with Gradle](https://github.com/ElinaValieva/quarkus-blog-app/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
