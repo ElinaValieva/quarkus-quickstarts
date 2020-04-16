@@ -1,10 +1,7 @@
 package com.quarkus.security;
 
-import com.quarkus.JWTConfiguration;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -22,7 +19,7 @@ public class PasswordEncoder {
         try {
             byte[] result = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512")
                     .generateSecret(new PBEKeySpec(password.toCharArray(), jwtConfiguration.secret.getBytes(),
-                            jwtConfiguration.iteration, jwtConfiguration.keylength))
+                            jwtConfiguration.iteration, jwtConfiguration.keyLength))
                     .getEncoded();
             return Base64.getEncoder().encodeToString(result);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {

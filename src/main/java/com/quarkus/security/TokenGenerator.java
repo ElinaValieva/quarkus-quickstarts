@@ -1,6 +1,5 @@
 package com.quarkus.security;
 
-import com.quarkus.JWTConfiguration;
 import com.quarkus.model.Role;
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
