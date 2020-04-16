@@ -1,4 +1,4 @@
-package com.quarkus.service;
+package com.quarkus.service.impl;
 
 import com.quarkus.entity.PostEntity;
 import com.quarkus.entity.UserEntity;
@@ -7,9 +7,11 @@ import com.quarkus.exception.ErrorMessage;
 import com.quarkus.model.Post;
 import com.quarkus.repository.PostRepository;
 import com.quarkus.repository.UserRepository;
+import com.quarkus.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 import static com.quarkus.util.ModelMapper.mapPostEntitiesToPost;
