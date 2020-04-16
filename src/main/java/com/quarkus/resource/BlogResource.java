@@ -1,19 +1,19 @@
 package com.quarkus.resource;
 
+import com.quarkus.model.Credential;
 import com.quarkus.model.Post;
 import com.quarkus.model.UserDetail;
+import com.quarkus.service.AuthenticationService;
 import com.quarkus.service.PostService;
 import com.quarkus.service.UserService;
 import lombok.AllArgsConstructor;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
 import java.util.List;
 
 @Path("/blog")
@@ -24,9 +24,11 @@ public class BlogResource {
 
     private final UserService userService;
     private final PostService postService;
+    private final AuthenticationService authenticationService;
 
     @GET
     @Path("/posts/{id}")
+    @RolesAllowed("FOLLOWER")
     public Response getPosts(@PathParam("id") Long id) {
         List<Post> posts = postService.getUserPosts(id);
         return Response.ok(posts).build();
@@ -34,6 +36,7 @@ public class BlogResource {
 
     @POST
     @Path("/post/{id}")
+    @RolesAllowed("FOLLOWER")
     public Response createPost(@PathParam("id") Long id, Post post) {
         Long postId = postService.createPost(post, id);
         return Response.ok(postId).build();
@@ -41,6 +44,7 @@ public class BlogResource {
 
     @POST
     @Path("/register")
+    @PermitAll
     public Response registerUser(UserDetail userDetail) {
         userService.register(userDetail);
         return Response.ok().build();
@@ -48,12 +52,14 @@ public class BlogResource {
 
     @POST
     @Path("/comment/{id}")
+    @RolesAllowed("FOLLOWER")
     public Response createCommentForPost(@PathParam("id") Integer id) {
         return Response.ok().build();
     }
 
     @GET
     @Path("/posts/title/{title}")
+    @RolesAllowed("FOLLOWER")
     public Response getPostsByTitle(@PathParam("title") String title) {
         List<Post> posts = postService.getPostsByTitle(title);
         return Response.ok(posts).build();
@@ -61,8 +67,17 @@ public class BlogResource {
 
     @GET
     @Path("/posts/tags/{tags}")
+    @RolesAllowed("FOLLOWER")
     public Response getPostsByTags(@PathParam("tags") String tags) {
         List<Post> posts = postService.getPostsByTags(tags);
         return Response.ok(posts).build();
+    }
+
+    @POST
+    @Path("/login")
+    @PermitAll
+    public Response login(Credential credential) {
+        String auth = authenticationService.auth(credential);
+        return Response.ok(auth).build();
     }
 }
