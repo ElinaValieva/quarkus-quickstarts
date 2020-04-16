@@ -17,6 +17,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-jdbc-h2'
     implementation 'org.jboss.resteasy:resteasy-jackson2-provider:3.0.19.Final'
     implementation 'com.h2database:h2:1.4.199'
+    implementation 'io.quarkus:elytron.security.jdbc'
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 

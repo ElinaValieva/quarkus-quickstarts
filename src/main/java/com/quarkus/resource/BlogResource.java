@@ -1,4 +1,4 @@
-package com.quarkus.controller;
+package com.quarkus.resource;
 
 import com.quarkus.model.Post;
 import com.quarkus.model.UserDetail;
@@ -20,7 +20,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @AllArgsConstructor
-public class BlogController {
+public class BlogResource {
 
     private final UserService userService;
     private final PostService postService;
