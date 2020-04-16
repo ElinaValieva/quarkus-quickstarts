@@ -1,9 +1,10 @@
 package com.quarkus.exception;
 
-import lombok.AllArgsConstructor;
+import java.io.Serializable;
 
-@AllArgsConstructor
-public class BusinessLogicException extends RuntimeException {
+public class BusinessLogicException extends RuntimeException implements Serializable {
 
-    private final String message;
+    public BusinessLogicException(String message) {
+        super(message);
+    }
 }
