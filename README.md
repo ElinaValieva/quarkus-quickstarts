@@ -33,3 +33,10 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./build/blog-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling#building-a-native-executable.
+
+&nbsp;
+## Openshift deployment :triangular_flag_on_post:
+```console
+oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/Elina/quarkus-quickstarts.git --context-dir=. --name=quarkus-quickstart-native
+oc expose svc/quarkus-quickstart-native
+```
