@@ -59,7 +59,7 @@ public class BlogResource {
         return Response.ok().build();
     }
 
-    @POST
+    @GET
     @Path("/posts/{id}/comments")
     @RolesAllowed("FOLLOWER")
     public Response getCommentsForPost(@PathParam("id") Long id) {
