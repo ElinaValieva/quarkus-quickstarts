@@ -9,7 +9,6 @@ import com.quarkus.service.CommentService;
 import com.quarkus.service.PostService;
 import com.quarkus.service.UserService;
 import lombok.AllArgsConstructor;
-
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
