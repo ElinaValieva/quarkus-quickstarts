@@ -1,6 +1,5 @@
 package com.quarkus.security;
 
-import com.quarkus.model.Role;
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
 import lombok.AllArgsConstructor;
@@ -29,7 +28,7 @@ public class TokenGenerator {
         claimsBuilder.subject(username);
         claimsBuilder.issuedAt(currentTimeInSecs);
         claimsBuilder.expiresAt(currentTimeInSecs + jwtConfiguration.duration);
-        claimsBuilder.groups(Role.FOLLOWER.toString());
+        claimsBuilder.groups("FOLLOWER");
 
         return claimsBuilder.jws().signatureKeyId(privateKeyLocation).sign(privateKey);
     }

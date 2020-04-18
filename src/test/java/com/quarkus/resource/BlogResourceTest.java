@@ -3,32 +3,52 @@ package com.quarkus.resource;
 import com.quarkus.entity.CredentialEntity;
 import com.quarkus.entity.UserEntity;
 import com.quarkus.exception.ErrorMessage;
+import com.quarkus.model.Comment;
 import com.quarkus.model.Credential;
+import com.quarkus.model.Post;
 import com.quarkus.model.UserDetail;
 import com.quarkus.repository.CredentialsRepository;
 import com.quarkus.repository.UserRepository;
 import com.quarkus.security.PasswordEncoder;
+import com.quarkus.security.TokenGenerator;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import lombok.AllArgsConstructor;
+import io.restassured.http.Header;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.inject.Inject;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@AllArgsConstructor
 @QuarkusTestResource(H2DatabaseTestResource.class)
 public class BlogResourceTest {
 
     private final UserRepository userRepository;
     private final CredentialsRepository credentialsRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenGenerator tokenGenerator;
 
+    @Inject
+    public BlogResourceTest(UserRepository userRepository,
+                            CredentialsRepository credentialsRepository,
+                            PasswordEncoder passwordEncoder,
+                            TokenGenerator tokenGenerator) {
+        this.userRepository = userRepository;
+        this.credentialsRepository = credentialsRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenGenerator = tokenGenerator;
+    }
+
+    private String token;
+
+    @SneakyThrows
     @BeforeEach
     void setUp() {
         CredentialEntity credentialEntity = credentialsRepository.save(CredentialEntity.builder()
@@ -41,6 +61,8 @@ public class BlogResourceTest {
                 .lastName("Quarkus last name")
                 .credentialEntity(credentialEntity)
                 .build());
+
+        token = tokenGenerator.generateToken("mrQuarkus");
     }
 
     @Test
@@ -62,11 +84,85 @@ public class BlogResourceTest {
     @Test
     void login() {
         given()
+                .when()
                 .contentType(ContentType.JSON)
                 .body(new Credential("mrQuarkus", "password"))
-                .when().post("/blog/login")
+                .post("/blog/login")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    void getPostForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .contentType(ContentType.JSON)
+                .pathParam("tags", 1)
+                .get("blog/posts/tags/{tags}")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    void getPostsByTitleForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .contentType(ContentType.JSON)
+                .pathParam("title", "Quarkus application")
+                .get("blog/posts/title/{title}")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    void getCommentsForPostForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .contentType(ContentType.JSON)
+                .pathParam("id", 0)
+                .get("blog/posts/{id}/comments")
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
+    void createCommentForPostForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .contentType(ContentType.JSON)
+                .pathParam("id", 0)
+                .body(Comment.builder().commentText("Quarkus comment").build())
+                .post("blog/posts/{id}/comment")
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
+    void createPostForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .contentType(ContentType.JSON)
+                .pathParam("id", 0)
+                .body(new Post("Quarkus Title", "Quarkus text", "#quarkus"))
+                .post("blog/post/{id}")
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
+    void getPostsForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .pathParam("id", 1)
+                .get("blog/posts/{id}")
+                .then()
+                .statusCode(400);
     }
 
     @AfterEach

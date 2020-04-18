@@ -44,6 +44,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isAuthorized(Credential credential) {
         String password = passwordEncoder.encode(credential.getPassword());
+        System.out.println("Expected: " + password);
+        credentialsRepository.findAll().forEach(credentialEntity -> {
+            System.out.println(credentialEntity.getUsername() + " " + credentialEntity.getPassword());
+        });
         credentialsRepository.findByUsernameAndPassword(credential.getUsername(), password)
                 .orElseThrow(() -> new BusinessLogicAuthException(ErrorMessage.NOT_AUTHORIZED));
         return true;
