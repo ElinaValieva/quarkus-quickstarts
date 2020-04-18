@@ -3,11 +3,11 @@
 #
 # Before building the docker image run:
 #
-# mvn package
+# ./gradlew  quarkusBuild
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/blog-jvm .
+# docker build -t quarkus-quickstart:jvm -f src/main/docker/Dockerfile.jvm .
 #
 # Then run the container using:
 #
