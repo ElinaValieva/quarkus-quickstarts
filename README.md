@@ -7,7 +7,8 @@
  2. `Gradle 6+` - for building package
 
 &nbsp;
-## Running the application in dev mode :arrow_forward:
+## Quarkus lifecycle :hammer:
+#### Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
 
@@ -15,8 +16,7 @@ You can run your application in dev mode that enables live coding using:
 ./gradlew quarkusDev
 ```
 
-&nbsp;
-## Packaging and running the application :hammer:
+#### Packaging and running the application
 The application can be packaged using ./gradlew quarkusBuild. It produces the blog-1.0.0-SNAPSHOT-runner.jar file in the build directory.
 ```
 ./gradlew quarkusBuild
@@ -24,8 +24,7 @@ The application can be packaged using ./gradlew quarkusBuild. It produces the bl
 java -jar build/blog-1.0.0-SNAPSHOT-runner.jar
 ```
 
-&nbsp;
-## Creating a native executable :electric_plug:
+#### Creating a native executable
 Using GraalVM:
 ```
 ./gradlew buildNative
@@ -34,6 +33,8 @@ Without GraalVM:
 ```
 ./gradlew buildNative --docker-build=true
 ```
+#### OpenApi
+Swagger Api available by path `/api`
 
 &nbsp;
 ## Openshift deployment :triangular_flag_on_post:
