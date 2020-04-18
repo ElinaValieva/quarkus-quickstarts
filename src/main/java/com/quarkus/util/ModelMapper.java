@@ -1,7 +1,11 @@
 package com.quarkus.util;
 
+import com.quarkus.entity.CommentEntity;
 import com.quarkus.entity.PostEntity;
+import com.quarkus.entity.UserEntity;
+import com.quarkus.model.Comment;
 import com.quarkus.model.Post;
+import com.quarkus.model.UserDetail;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -13,15 +17,37 @@ public class ModelMapper {
 
     public static Post mapPostEntityToPost(PostEntity postEntity) {
         return Post.builder()
-                   .title(postEntity.getTitle())
-                   .text(postEntity.getText())
-                   .tags(postEntity.getTags())
-                   .build();
+                .title(postEntity.getTitle())
+                .text(postEntity.getText())
+                .tags(postEntity.getTags())
+                .build();
     }
 
     public static List<Post> mapPostEntitiesToPost(List<PostEntity> postEntities) {
         return postEntities.stream()
-                           .map(ModelMapper::mapPostEntityToPost)
-                           .collect(Collectors.toList());
+                .map(ModelMapper::mapPostEntityToPost)
+                .collect(Collectors.toList());
+    }
+
+    public static UserDetail mapUserEntityToUserDetail(UserEntity userEntity) {
+        return UserDetail.builder()
+                .userName(userEntity.getCredentialEntity().getUsername())
+                .firstName(userEntity.getName())
+                .lastName(userEntity.getLastName())
+                .build();
+    }
+
+    public static Comment mapCommentEntityToComment(CommentEntity commentEntity) {
+        return Comment.builder()
+                .commentText(commentEntity.getComment())
+                .date(commentEntity.getDate())
+                .userDetail(mapUserEntityToUserDetail(commentEntity.getUserEntity()))
+                .build();
+    }
+
+    public static List<Comment> mapCommentEntitiesToComment(List<CommentEntity> commentEntities) {
+        return commentEntities.stream()
+                .map(ModelMapper::mapCommentEntityToComment)
+                .collect(Collectors.toList());
     }
 }

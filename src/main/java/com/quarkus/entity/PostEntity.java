@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,8 @@ public class PostEntity {
     private String title;
 
     private String text;
+
+    private Date date;
 
     @OneToMany
     private List<CommentEntity> commentEntities;

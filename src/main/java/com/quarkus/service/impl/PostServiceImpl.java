@@ -11,7 +11,7 @@ import com.quarkus.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.core.SecurityContext;
+import java.util.Date;
 import java.util.List;
 
 import static com.quarkus.util.ModelMapper.mapPostEntitiesToPost;
@@ -25,25 +25,25 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Long createPost(Post post, Long id) {
-        // todo
-        userRepository.findAll().forEach(userEntity -> System.out.println(userEntity.getId()));
         UserEntity user = userRepository.findById(id)
-                                        .orElseThrow(() -> new BusinessLogicException(ErrorMessage.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ErrorMessage.USER_NOT_FOUND));
 
         PostEntity postEntity = postRepository.save(PostEntity.builder()
-                                                              .likes(0)
-                                                              .tags(post.getTags())
-                                                              .title(post.getTitle())
-                                                              .text(post.getText())
-                                                              .userEntity(user)
-                                                              .build());
+                .likes(0)
+                .tags(post.getTags())
+                .title(post.getTitle())
+                .text(post.getText())
+                .userEntity(user)
+                .date(new Date())
+                .build());
         return postEntity.getId();
     }
 
     @Override
     public List<Post> getUserPosts(Long id) {
-        // todo
-        List<PostEntity> postEntities = postRepository.findAllById(id);
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessLogicException(ErrorMessage.USER_NOT_FOUND));
+        List<PostEntity> postEntities = postRepository.findAllByUserEntity(userEntity);
         return mapPostEntitiesToPost(postEntities);
     }
 
