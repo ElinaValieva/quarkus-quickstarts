@@ -1,5 +1,6 @@
 package com.quarkus.resource;
 
+import com.quarkus.entity.UserEntity;
 import com.quarkus.model.Comment;
 import com.quarkus.model.Credential;
 import com.quarkus.model.Post;
@@ -9,11 +10,14 @@ import com.quarkus.service.CommentService;
 import com.quarkus.service.PostService;
 import com.quarkus.service.UserService;
 import lombok.AllArgsConstructor;
+
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Path("/blog")
@@ -30,16 +34,20 @@ public class BlogResource {
     @GET
     @Path("/posts/{id}")
     @RolesAllowed("FOLLOWER")
-    public Response getPosts(@PathParam("id") Long id) {
-        List<Post> posts = postService.getUserPosts(id);
+    public Response getPosts(@Context SecurityContext sec) {
+        String username = sec.getUserPrincipal().getName();
+        UserEntity userEntity = userService.findUserEntityByUsername(username);
+        List<Post> posts = postService.getUserPosts(userEntity);
         return Response.ok(posts).build();
     }
 
     @POST
-    @Path("/post/{id}")
+    @Path("/posts/post")
     @RolesAllowed("FOLLOWER")
-    public Response createPost(@PathParam("id") Long id, Post post) {
-        Long postId = postService.createPost(post, id);
+    public Response createPost(@Context SecurityContext sec, Post post) {
+        String username = sec.getUserPrincipal().getName();
+        UserEntity userEntity = userService.findUserEntityByUsername(username);
+        Long postId = postService.createPost(post, userEntity);
         return Response.ok(postId).build();
     }
 

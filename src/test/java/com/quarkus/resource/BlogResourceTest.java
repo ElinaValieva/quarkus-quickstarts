@@ -51,10 +51,11 @@ public class BlogResourceTest {
     @SneakyThrows
     @BeforeEach
     void setUp() {
-        CredentialEntity credentialEntity = credentialsRepository.save(CredentialEntity.builder()
-                .username("mrQuarkus")
-                .password(passwordEncoder.encode("password"))
-                .build());
+        CredentialEntity credentialEntity = credentialsRepository.findByUsername("mrQuarkusUserName")
+                .orElseGet(() -> credentialsRepository.save(CredentialEntity.builder()
+                        .username("mrQuarkusUserName")
+                        .password(passwordEncoder.encode("password"))
+                        .build()));
 
         userRepository.save(UserEntity.builder()
                 .name("Quarkus user")
@@ -62,7 +63,7 @@ public class BlogResourceTest {
                 .credentialEntity(credentialEntity)
                 .build());
 
-        token = tokenGenerator.generateToken("mrQuarkus");
+        token = tokenGenerator.generateToken("mrQuarkusUserName");
     }
 
     @Test
@@ -72,7 +73,7 @@ public class BlogResourceTest {
                 .body(UserDetail.builder()
                         .firstName("Quarkus user")
                         .lastName("Quarkus last name")
-                        .userName("mrQuarkus")
+                        .userName("mrQuarkusUserName")
                         .password("password")
                         .build())
                 .when().post("/blog/register")
@@ -86,7 +87,7 @@ public class BlogResourceTest {
         given()
                 .when()
                 .contentType(ContentType.JSON)
-                .body(new Credential("mrQuarkus", "password"))
+                .body(new Credential("mrQuarkusUserName", "password"))
                 .post("/blog/login")
                 .then()
                 .statusCode(200);
@@ -147,11 +148,10 @@ public class BlogResourceTest {
                 .when()
                 .header(new Header("Authorization", "Bearer " + token))
                 .contentType(ContentType.JSON)
-                .pathParam("id", 0)
                 .body(new Post("Quarkus Title", "Quarkus text", "#quarkus"))
-                .post("blog/post/{id}")
+                .post("/blog/posts/post")
                 .then()
-                .statusCode(400);
+                .statusCode(200);
     }
 
     @Test
@@ -159,15 +159,13 @@ public class BlogResourceTest {
         given()
                 .when()
                 .header(new Header("Authorization", "Bearer " + token))
-                .pathParam("id", 1)
-                .get("blog/posts/{id}")
+                .get("blog/posts")
                 .then()
-                .statusCode(400);
+                .statusCode(200);
     }
 
     @AfterEach
     void tearDown() {
         userRepository.deleteAll();
-        credentialsRepository.deleteAll();
     }
 }

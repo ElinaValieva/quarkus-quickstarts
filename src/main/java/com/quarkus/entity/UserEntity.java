@@ -4,14 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
+@Table(name = "user")
 @Entity
 @Data
 @Builder
@@ -27,9 +25,11 @@ public class UserEntity {
 
     private String lastName;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
+    @Cascade({org.hibernate.annotations.CascadeType.MERGE})
     private CredentialEntity credentialEntity;
 
-    @ManyToMany
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @OneToMany(mappedBy = "userEntity", orphanRemoval = true)
     private List<PostEntity> posts;
 }

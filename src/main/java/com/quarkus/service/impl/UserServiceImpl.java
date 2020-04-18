@@ -14,6 +14,8 @@ import com.quarkus.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -24,12 +26,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserDetail userDetail) {
-        CredentialEntity credentialEntity = credentialsRepository.findByUsername(userDetail.getUserName());
+        Optional<CredentialEntity> optionalCredentialEntity = credentialsRepository.findByUsername(userDetail.getUserName());
 
-        if (credentialEntity != null)
+        if (optionalCredentialEntity.isPresent())
             throw new BusinessLogicException(ErrorMessage.USERNAME_NOT_UNIQUE);
 
-        credentialEntity = credentialsRepository.save(CredentialEntity.builder()
+        CredentialEntity credentialEntity = credentialsRepository.save(CredentialEntity.builder()
                 .username(userDetail.getUserName())
                 .password(passwordEncoder.encode(userDetail.getPassword()))
                 .build());
@@ -44,12 +46,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isAuthorized(Credential credential) {
         String password = passwordEncoder.encode(credential.getPassword());
-        System.out.println("Expected: " + password);
-        credentialsRepository.findAll().forEach(credentialEntity -> {
-            System.out.println(credentialEntity.getUsername() + " " + credentialEntity.getPassword());
-        });
         credentialsRepository.findByUsernameAndPassword(credential.getUsername(), password)
                 .orElseThrow(() -> new BusinessLogicAuthException(ErrorMessage.NOT_AUTHORIZED));
         return true;
+    }
+
+    @Override
+    public UserEntity findUserEntityByUsername(String username) {
+        CredentialEntity credentialEntity = credentialsRepository.findByUsername(username)
+                .orElseThrow(() -> new BusinessLogicAuthException(ErrorMessage.USER_NOT_FOUND));
+
+        return userRepository.findByCredentialEntity(credentialEntity)
+                .orElseThrow(() -> new BusinessLogicException(ErrorMessage.USER_NOT_FOUND));
     }
 }
