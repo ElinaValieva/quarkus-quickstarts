@@ -13,7 +13,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
-                </div><!--//container-->
+                </div>
             </section>
             <PostsComponent v-bind:posts="posts"/>
         </div>
@@ -21,20 +21,26 @@
 </template>
 
 <script>
-import PostsComponent from "./RetrievePostsComponent";
+import PostsComponent from "./performed/RetrievePostsComponent";
 import UserComponent from "./performed/UserComponent";
 
 export default {
-    name: "SearchComponent",
+    name: "BlogComponent",
     components: {
         PostsComponent, UserComponent
     },
     data() {
         return {
-            post: {"id": 1, "title": "Hello world", "text": "Hi all ...", "tags": "#hello", "date": "12 Apr"},
-            posts: [
-                {"id": 1, "title": "Hello world", "text": "Hi all ...", "tags": "#hello", "date": "12 Apr"},
-                {"id": 2, "title": "Hello world [2]", "text": "Hi all ...[2]", "tags": "#[2]", "date": "25 Apr"}],
+            posts: []
+        }
+    },
+    mounted() {
+        this.posts = this.loadPosts();
+    },
+    methods: {
+        loadPosts() {
+            this.$store.dispatch('getPosts').catch(error => alert(JSON.stringify(error.message)));
+            return this.$store.getters.postDetails;
         }
     }
 }

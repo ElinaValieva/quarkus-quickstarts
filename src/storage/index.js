@@ -12,7 +12,7 @@ export const pathSettings = {
     register: '/register',
     createPost: '/posts/post',
     getUserInfo: '/user',
-    message: '/message',
+    getPosts: '/posts/all',
     auth: '/auth',
     token: 'access_token',
     id: 'user_id'
@@ -27,11 +27,15 @@ export default new Vuex.Store({
     plugins: [vuexLocalStorage.plugin],
     state: {
         token: null,
-        user: {"username": "undefined", "firstName": "undefined", "lastName": "undefined"}
+        user: {"username": "undefined", "firstName": "undefined", "lastName": "undefined"},
+        posts: []
     },
     getters: {
         userInfo(state) {
             return state.user
+        },
+        postDetails(state) {
+            return state.posts
         }
     },
     mutations: {
@@ -40,6 +44,9 @@ export default new Vuex.Store({
         },
         retrieveUserInfo(state, user) {
             state.user = user;
+        },
+        retrievePosts(state, posts) {
+            state.posts = posts;
         }
     },
     actions: {
@@ -80,6 +87,16 @@ export default new Vuex.Store({
                         headers: {'Authorization': 'Bearer ' + this.state.token}
                     })
                     .then(response => context.commit('retrieveUserInfo', response.data))
+                    .catch(error => reject(error));
+            })
+        },
+        getPosts(context) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get(pathSettings.getPosts, {
+                        headers: {'Authorization': 'Bearer ' + this.state.token}
+                    })
+                    .then(response => context.commit('retrievePosts', response.data))
                     .catch(error => reject(error));
             })
         }
