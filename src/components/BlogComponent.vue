@@ -8,14 +8,13 @@
                     <form class="signup-form form-inline justify-content-center pt-3">
                         <div class="form-group">
                             <label class="sr-only" for="semail">Your email</label>
-                            <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail"
-                                   placeholder="Post ..">
+                            <input type="text" id="semail" name="semail1" class="form-control mr-md-1 semail"
+                                   placeholder="Post .." v-model="filtered">
                         </div>
-                        <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
             </section>
-            <PostsComponent v-bind:posts="posts"/>
+            <PostsComponent v-bind:posts="filteredPost"/>
         </div>
     </div>
 </template>
@@ -31,16 +30,30 @@ export default {
     },
     data() {
         return {
-            posts: []
+            posts: this.loadPosts(),
+            filtered: ''
         }
     },
-    mounted() {
-        this.posts = this.loadPosts();
+    computed: {
+        filteredPost: function () {
+            if (this.filtered !== '') {
+                return (this.filtered.startsWith('#')) ?
+                    this.filterByTags(this.filtered) :
+                    this.filterByTitle(this.filtered);
+            }
+            return this.posts;
+        }
     },
     methods: {
         loadPosts() {
             this.$store.dispatch('getPosts').catch(error => alert(JSON.stringify(error.message)));
             return this.$store.getters.postDetails;
+        },
+        filterByTags(tag) {
+            return this.posts.filter(post => post.tags !== undefined && post.tags.includes(tag));
+        },
+        filterByTitle(title) {
+            return this.posts.filter(post => post.title.includes(title));
         }
     }
 }

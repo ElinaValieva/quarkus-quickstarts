@@ -36,7 +36,7 @@ export default {
                 username: this.username,
                 password: this.password
             }).then(() => {
-                this.loadPosts();
+                this.getUserInfo();
                 this.$router.push('/blog');
             }).catch(error => alert(JSON.stringify(error.message)));
         },
