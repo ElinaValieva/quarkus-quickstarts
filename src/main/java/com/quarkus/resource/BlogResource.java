@@ -32,7 +32,7 @@ public class BlogResource {
     private final CommentService commentService;
 
     @GET
-    @Path("/posts/{id}")
+    @Path("/posts")
     @RolesAllowed("FOLLOWER")
     public Response getPosts(@Context SecurityContext sec) {
         String username = sec.getUserPrincipal().getName();

@@ -10,6 +10,4 @@ public interface CredentialsRepository extends CrudRepository<CredentialEntity, 
     Optional<CredentialEntity> findByUsername(String username);
 
     Optional<CredentialEntity> findByUsernameAndPassword(String username, String password);
-
-    void deleteAllByUsername(String username);
 }

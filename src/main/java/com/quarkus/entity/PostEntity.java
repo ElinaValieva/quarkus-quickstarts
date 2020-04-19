@@ -23,17 +23,22 @@ public class PostEntity {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "tags")
     private String tags;
 
+    @Column(name = "likes")
     private Integer likes;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "post_text")
     private String text;
 
+    @Column(name = "post_date")
     private Date date;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<CommentEntity> commentEntities;
 

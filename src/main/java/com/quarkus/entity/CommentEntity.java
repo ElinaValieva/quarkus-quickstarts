@@ -17,13 +17,16 @@ import java.util.Date;
 public class CommentEntity {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue
     private Long id;
 
     @OneToOne
     private UserEntity userEntity;
 
+    @Column(name = "comment")
     private String comment;
 
+    @Column(name = "comment_date")
     private Date date;
 }

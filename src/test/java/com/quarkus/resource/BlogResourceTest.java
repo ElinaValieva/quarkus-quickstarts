@@ -166,6 +166,18 @@ public class BlogResourceTest {
 
     @AfterEach
     void tearDown() {
+//        userRepository.findAll().forEach(userEntity -> {
+//            userEntity.setCredentialEntity(null);
+//            userEntity.setPosts(null);
+//            userRepository.save(userEntity);
+//        });
+//        credentialsRepository.findAll().forEach(credentialEntity -> {
+//            credentialEntity.setUsername(null);
+//            credentialsRepository.save(credentialEntity);
+//        });
+//
+//        credentialsRepository.findAll().forEach(System.out::println);
+//        userRepository.findAll().forEach(System.out::println);
         userRepository.deleteAll();
     }
 }

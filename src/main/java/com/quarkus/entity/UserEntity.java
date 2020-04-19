@@ -19,17 +19,21 @@ public class UserEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "lastName")
     private String lastName;
 
-    @OneToOne(orphanRemoval = true)
-    @Cascade({org.hibernate.annotations.CascadeType.MERGE})
+    @Cascade({org.hibernate.annotations.CascadeType.DELETE})
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
     private CredentialEntity credentialEntity;
 
-    @Cascade({org.hibernate.annotations.CascadeType.ALL})
-    @OneToMany(mappedBy = "userEntity", orphanRemoval = true)
+    @Cascade({org.hibernate.annotations.CascadeType.DELETE})
+    @OneToMany(mappedBy = "userEntity")
     private List<PostEntity> posts;
 }
