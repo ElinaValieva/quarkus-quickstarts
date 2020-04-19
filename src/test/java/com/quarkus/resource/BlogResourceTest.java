@@ -52,17 +52,17 @@ public class BlogResourceTest {
     @BeforeEach
     void setUp() {
         CredentialEntity credentialEntity = credentialsRepository.findByUsername("mrQuarkusUserName")
-                                                                 .orElseGet(() -> credentialsRepository.save(CredentialEntity
-                                                                         .builder()
-                                                                         .username("mrQuarkusUserName")
-                                                                         .password(passwordEncoder.encode("password"))
-                                                                         .build()));
+                .orElseGet(() -> credentialsRepository.save(CredentialEntity
+                        .builder()
+                        .username("mrQuarkusUserName")
+                        .password(passwordEncoder.encode("password"))
+                        .build()));
 
         userRepository.save(UserEntity.builder()
-                                      .name("Quarkus user")
-                                      .lastName("Quarkus last name")
-                                      .credentialEntity(credentialEntity)
-                                      .build());
+                .name("Quarkus user")
+                .lastName("Quarkus last name")
+                .credentialEntity(credentialEntity)
+                .build());
 
         token = tokenGenerator.generateToken("mrQuarkusUserName");
     }
@@ -72,11 +72,11 @@ public class BlogResourceTest {
         given()
                 .contentType(ContentType.JSON)
                 .body(UserDetail.builder()
-                                .firstName("Quarkus user")
-                                .lastName("Quarkus last name")
-                                .userName("mrQuarkusUserName")
-                                .password("password")
-                                .build())
+                        .firstName("Quarkus user")
+                        .lastName("Quarkus last name")
+                        .username("mrQuarkusUserName")
+                        .password("password")
+                        .build())
                 .when().post("/blog/register")
                 .then()
                 .statusCode(400)
@@ -90,6 +90,17 @@ public class BlogResourceTest {
                 .contentType(ContentType.JSON)
                 .body(new Credential("mrQuarkusUserName", "password"))
                 .post("/blog/login")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    void getUserInfoForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .contentType(ContentType.JSON)
+                .get("blog/user")
                 .then()
                 .statusCode(200);
     }
@@ -151,7 +162,11 @@ public class BlogResourceTest {
                 .when()
                 .header(new Header("Authorization", "Bearer " + token))
                 .contentType(ContentType.JSON)
-                .body(new Post("Quarkus Title", "Quarkus text", "#quarkus"))
+                .body(Post.builder()
+                        .title("Quarkus Title")
+                        .text("Quarkus text")
+                        .tags("#quarkus")
+                        .build())
                 .post("/blog/posts/post")
                 .then()
                 .statusCode(200);
@@ -166,6 +181,17 @@ public class BlogResourceTest {
                 .then()
                 .statusCode(200);
     }
+
+    @Test
+    void getAllPostsForAuthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + token))
+                .get("blog/posts/all")
+                .then()
+                .statusCode(200);
+    }
+
 
     @AfterEach
     void tearDown() {

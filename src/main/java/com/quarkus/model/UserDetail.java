@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class UserDetail {
 
-    private String userName;
+    private String username;
 
     private String firstName;
 

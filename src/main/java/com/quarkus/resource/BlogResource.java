@@ -41,6 +41,23 @@ public class BlogResource {
         return Response.ok(posts).build();
     }
 
+    @GET
+    @Path("/posts/all")
+    @RolesAllowed("FOLLOWER")
+    public Response getAllPosts() {
+        List<Post> posts = postService.getPosts();
+        return Response.ok(posts).build();
+    }
+
+    @GET
+    @Path("/user")
+    @RolesAllowed("FOLLOWER")
+    public Response getUserInfo(@Context SecurityContext sec) {
+        String username = sec.getUserPrincipal().getName();
+        UserDetail userDetail = userService.findUserByUsername(username);
+        return Response.ok(userDetail).build();
+    }
+
     @POST
     @Path("/posts/post")
     @RolesAllowed("FOLLOWER")

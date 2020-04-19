@@ -14,4 +14,6 @@ public interface PostService {
     List<Post> getPostsByTitle(String title);
 
     List<Post> getPostsByTags(String tags);
+
+    List<Post> getPosts();
 }

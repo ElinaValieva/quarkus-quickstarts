@@ -16,4 +16,6 @@ public class Post {
     private String text;
 
     private String tags;
+
+    private String date;
 }

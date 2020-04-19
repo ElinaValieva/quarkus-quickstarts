@@ -9,6 +9,7 @@ import com.quarkus.model.UserDetail;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ public class ModelMapper {
                 .title(postEntity.getTitle())
                 .text(postEntity.getText())
                 .tags(postEntity.getTags())
+                .date(new SimpleDateFormat("dd MMM").format(postEntity.getDate()))
                 .build();
     }
 
@@ -31,7 +33,7 @@ public class ModelMapper {
 
     public static UserDetail mapUserEntityToUserDetail(UserEntity userEntity) {
         return UserDetail.builder()
-                .userName(userEntity.getCredentialEntity().getUsername())
+                .username(userEntity.getCredentialEntity().getUsername())
                 .firstName(userEntity.getName())
                 .lastName(userEntity.getLastName())
                 .build();
@@ -40,7 +42,7 @@ public class ModelMapper {
     public static Comment mapCommentEntityToComment(CommentEntity commentEntity) {
         return Comment.builder()
                 .commentText(commentEntity.getComment())
-                .date(commentEntity.getDate())
+                .date(new SimpleDateFormat("dd MMM").format(commentEntity.getDate()))
                 .userDetail(mapUserEntityToUserDetail(commentEntity.getUserEntity()))
                 .build();
     }

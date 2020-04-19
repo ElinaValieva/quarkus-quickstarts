@@ -62,9 +62,12 @@ public class BlogResourceForErrorTest {
         given()
                 .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
-                .pathParam("id", 1)
-                .body(new Post("Quarkus Title", "Quarkus text", "#quarkus"))
-                .when().post("blog/post/{id}")
+                .body(Post.builder()
+                        .title("Quarkus Title")
+                        .text("Quarkus text")
+                        .tags("#quarkus")
+                        .build())
+                .when().post("blog/posts/post")
                 .then()
                 .statusCode(401);
     }
@@ -74,8 +77,28 @@ public class BlogResourceForErrorTest {
         given()
                 .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
-                .pathParam("id", 1)
-                .when().get("blog/posts/{id}")
+                .when().get("blog/posts")
+                .then()
+                .statusCode(401);
+    }
+
+    @Test
+    void getAllPostsForUnauthorizedUser() {
+        given()
+                .header(new Header("Authorization", "Bearer " + null))
+                .contentType(ContentType.JSON)
+                .when().get("blog/posts/all")
+                .then()
+                .statusCode(401);
+    }
+
+    @Test
+    void getUserInfoForUnauthorizedUser() {
+        given()
+                .when()
+                .header(new Header("Authorization", "Bearer " + null))
+                .contentType(ContentType.JSON)
+                .get("/user")
                 .then()
                 .statusCode(401);
     }

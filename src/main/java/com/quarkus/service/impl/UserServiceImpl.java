@@ -11,6 +11,7 @@ import com.quarkus.repository.CredentialsRepository;
 import com.quarkus.repository.UserRepository;
 import com.quarkus.security.PasswordEncoder;
 import com.quarkus.service.UserService;
+import com.quarkus.util.ModelMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +27,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserDetail userDetail) {
-        Optional<CredentialEntity> optionalCredentialEntity = credentialsRepository.findByUsername(userDetail.getUserName());
+        Optional<CredentialEntity> optionalCredentialEntity = credentialsRepository.findByUsername(userDetail.getUsername());
 
         if (optionalCredentialEntity.isPresent())
             throw new BusinessLogicException(ErrorMessage.USERNAME_NOT_UNIQUE);
 
         CredentialEntity credentialEntity = credentialsRepository.save(CredentialEntity.builder()
-                .username(userDetail.getUserName())
+                .username(userDetail.getUsername())
                 .password(passwordEncoder.encode(userDetail.getPassword()))
                 .build());
 
@@ -58,5 +59,10 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findByCredentialEntity(credentialEntity)
                 .orElseThrow(() -> new BusinessLogicException(ErrorMessage.USER_NOT_FOUND));
+    }
+
+    @Override
+    public UserDetail findUserByUsername(String username) {
+        return ModelMapper.mapUserEntityToUserDetail(findUserEntityByUsername(username));
     }
 }

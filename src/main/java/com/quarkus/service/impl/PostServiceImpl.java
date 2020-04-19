@@ -8,6 +8,7 @@ import com.quarkus.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,5 +51,12 @@ public class PostServiceImpl implements PostService {
     public List<Post> getPostsByTags(String tags) {
         List<PostEntity> postEntities = postRepository.findAllByTags(tags);
         return mapPostEntitiesToPost(postEntities);
+    }
+
+    @Override
+    public List<Post> getPosts() {
+        List<PostEntity> posts = new ArrayList<>();
+        postRepository.findAll().forEach(posts::add);
+        return mapPostEntitiesToPost(posts);
     }
 }
