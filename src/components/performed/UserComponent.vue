@@ -9,7 +9,7 @@
                 </button>
                 <div id="navigation" class="collapse navbar-collapse flex-column">
                     <div class="profile-section pt-3 pt-lg-0">
-                        <img class="profile-image mb-3 rounded-circle mx-auto" src="../assets/images/profile.png"
+                        <img class="profile-image mb-3 rounded-circle mx-auto" src="../../assets/images/profile.png"
                              alt="image">
                         <div class="bio mb-3">Hi, my name is {{user.firstName}} {{user.lastName}}. Briefly introduce
                             yourself here. You can also provide a link to the about page.
@@ -27,12 +27,16 @@
 
                     <ul class="navbar-nav flex-column text-left">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span
-                                    class="sr-only">(current)</span></a>
+                            <a class="nav-link"><i class="fas fa-home fa-fw mr-2"></i>
+                                <router-link to="/blog" style="color: white">Blog Home</router-link>
+                                <span class="sr-only">(current)</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="blog-post.html"><i class="fas fa-bookmark fa-fw mr-2"></i>Blog
-                                Post</a>
+                            <a class="nav-link">
+                                <i class="fas fa-bookmark fa-fw mr-2"></i>
+                                <router-link to="/blog/post" style="color: white">Create post</router-link>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -44,9 +48,9 @@
 <script>
 export default {
     name: "InfoComponent",
-    data() {
-        return {
-            user: {"username": "Quarkus", "firstName": "Bod", "lastName": "Halz"}
+    computed: {
+        user() {
+            return this.$store.getters.userInfo;
         }
     }
 }

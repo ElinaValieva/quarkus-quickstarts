@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import LoginComponent from "../components/LoginComponent";
-import RegistrationComponent from "../components/RegistrationComponent";
-import CreatePostComponent from "../components/CreatePostComponent";
+import LoginComponent from "../components/performed/LoginComponent";
+import RegistrationComponent from "../components/performed/RegistrationComponent";
+import CreatePostComponent from "../components/performed/CreatePostComponent";
 import BlogComponent from "../components/BlogComponent";
 import GetPostComponent from "../components/GetPostComponent";
 
@@ -22,7 +22,7 @@ export default new Router({
         name: 'RegistrationComponent',
         component: RegistrationComponent
     }, {
-        path: '/blog/posts',
+        path: '/blog/post',
         name: 'CreatePostComponent',
         component: CreatePostComponent
     }, {
@@ -30,7 +30,7 @@ export default new Router({
         name: 'BlogComponent',
         component: BlogComponent
     }, {
-        path: '/blog/post',
+        path: '/blog/posts',
         name: 'GetPostComponent',
         component: GetPostComponent
     }

@@ -10,8 +10,8 @@ axios.defaults.baseURL = 'http://localhost:8090/blog';
 export const pathSettings = {
     login: '/login',
     register: '/register',
-    messages: '/messages/',
-    friends: '/friends/',
+    createPost: '/posts/post',
+    getUserInfo: '/user',
     message: '/message',
     auth: '/auth',
     token: 'access_token',
@@ -26,12 +26,20 @@ const vuexLocalStorage = new VuexPersist({
 export default new Vuex.Store({
     plugins: [vuexLocalStorage.plugin],
     state: {
-        token: null
+        token: null,
+        user: {"username": "undefined", "firstName": "undefined", "lastName": "undefined"}
     },
-    getters: {},
+    getters: {
+        userInfo(state) {
+            return state.user
+        }
+    },
     mutations: {
         retrieveToken(state, token) {
             state.token = token
+        },
+        retrieveUserInfo(state, user) {
+            state.user = user;
         }
     },
     actions: {
@@ -52,6 +60,26 @@ export default new Vuex.Store({
                         context.commit('retrieveToken', token);
                         resolve(response)
                     })
+                    .catch(error => reject(error));
+            })
+        },
+        createPost(context, data) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(pathSettings.createPost, data, {
+                        headers: {'Authorization': 'Bearer ' + this.state.token}
+                    })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error));
+            })
+        },
+        getUserInfo(context) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get(pathSettings.getUserInfo, {
+                        headers: {'Authorization': 'Bearer ' + this.state.token}
+                    })
+                    .then(response => context.commit('retrieveUserInfo', response.data))
                     .catch(error => reject(error));
             })
         }

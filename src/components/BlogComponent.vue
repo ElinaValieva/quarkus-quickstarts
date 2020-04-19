@@ -22,7 +22,7 @@
 
 <script>
 import PostsComponent from "./RetrievePostsComponent";
-import UserComponent from "./UserComponent";
+import UserComponent from "./performed/UserComponent";
 
 export default {
     name: "SearchComponent",

@@ -19,9 +19,11 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="text">Tags</label>
-                                <textarea  id="text" v-model="text" class="form-control mr-md-1" rows="20"></textarea>
+                                <textarea id="text" v-model="text" class="form-control mr-md-1" rows="20"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Create post</button>
+                            <button type="submit" class="btn btn-primary" v-on:click="createPost" v-on:click.prevent>
+                                Create post
+                            </button>
                         </form>
                     </div>
                 </section>
@@ -44,8 +46,19 @@ export default {
             text: null,
             tags: null
         }
+    },
+    methods: {
+        createPost: function () {
+            this.$store.dispatch('createPost', {
+                title: this.title,
+                text: this.text,
+                tags: this.tags
+            }).then(() => {
+                alert("Successfully created")
+            }).catch(error => alert(JSON.stringify(error.message)));
+        }
     }
 }
 </script>
 
-<style src="../assets/css/theme.css"></style>
+<style src="../../assets/css/theme.css"></style>
