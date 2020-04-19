@@ -1,16 +1,16 @@
 <template>
     <div id="app">
-        <SearchComponent/>
+        <RegistrationComponent/>
     </div>
 </template>
 
 <script>
-import SearchComponent from "./components/SearchComponent";
+import RegistrationComponent from "./components/RegistrationComponent";
 
 export default {
     name: 'App',
     components: {
-        SearchComponent
+        RegistrationComponent
     }
 }
 </script>
