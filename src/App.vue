@@ -1,16 +1,16 @@
 <template>
     <div id="app">
-        <RegistrationComponent/>
+        <CreatePostComponent/>
     </div>
 </template>
 
 <script>
-import RegistrationComponent from "./components/RegistrationComponent";
+import CreatePostComponent from "./components/CreatePostComponent";
 
 export default {
     name: 'App',
     components: {
-        RegistrationComponent
+        CreatePostComponent
     }
 }
 </script>
