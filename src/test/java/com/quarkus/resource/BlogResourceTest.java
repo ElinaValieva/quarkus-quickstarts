@@ -52,16 +52,17 @@ public class BlogResourceTest {
     @BeforeEach
     void setUp() {
         CredentialEntity credentialEntity = credentialsRepository.findByUsername("mrQuarkusUserName")
-                .orElseGet(() -> credentialsRepository.save(CredentialEntity.builder()
-                        .username("mrQuarkusUserName")
-                        .password(passwordEncoder.encode("password"))
-                        .build()));
+                                                                 .orElseGet(() -> credentialsRepository.save(CredentialEntity
+                                                                         .builder()
+                                                                         .username("mrQuarkusUserName")
+                                                                         .password(passwordEncoder.encode("password"))
+                                                                         .build()));
 
         userRepository.save(UserEntity.builder()
-                .name("Quarkus user")
-                .lastName("Quarkus last name")
-                .credentialEntity(credentialEntity)
-                .build());
+                                      .name("Quarkus user")
+                                      .lastName("Quarkus last name")
+                                      .credentialEntity(credentialEntity)
+                                      .build());
 
         token = tokenGenerator.generateToken("mrQuarkusUserName");
     }
@@ -71,11 +72,11 @@ public class BlogResourceTest {
         given()
                 .contentType(ContentType.JSON)
                 .body(UserDetail.builder()
-                        .firstName("Quarkus user")
-                        .lastName("Quarkus last name")
-                        .userName("mrQuarkusUserName")
-                        .password("password")
-                        .build())
+                                .firstName("Quarkus user")
+                                .lastName("Quarkus last name")
+                                .userName("mrQuarkusUserName")
+                                .password("password")
+                                .build())
                 .when().post("/blog/register")
                 .then()
                 .statusCode(400)
@@ -126,7 +127,8 @@ public class BlogResourceTest {
                 .pathParam("id", 0)
                 .get("blog/posts/{id}/comments")
                 .then()
-                .statusCode(400);
+                .statusCode(400)
+                .body(is(ErrorMessage.POST_DOESNT_EXIST));
     }
 
     @Test
@@ -139,7 +141,8 @@ public class BlogResourceTest {
                 .body(Comment.builder().commentText("Quarkus comment").build())
                 .post("blog/posts/{id}/comment")
                 .then()
-                .statusCode(400);
+                .statusCode(400)
+                .body(is(ErrorMessage.POST_DOESNT_EXIST));
     }
 
     @Test
