@@ -5,7 +5,7 @@
             <div class="main-wrapper">
                 <section class="cta-section theme-bg-light py-5">
                     <div class="container text-center">
-                        <h2>DevBlog - Life is for sharing</h2>
+                        <h1>{{title}}</h1>
                         <form>
                             <div class="form-group">
                                 <label class="sr-only" for="title">Title</label>
@@ -40,7 +40,7 @@ export default {
     },
     data() {
         return {
-            title: null,
+            title: 'DevBlog - Life is for sharing',
             text: null,
             tags: null
         }

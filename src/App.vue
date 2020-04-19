@@ -1,16 +1,20 @@
 <template>
     <div id="app">
-        <BlogComponent/>
+        <router-view/>
     </div>
 </template>
 
 <script>
-import BlogComponent from "./components/BlogComponent";
 
 export default {
     name: 'App',
-    components: {
-        BlogComponent
-    }
+    components: {}
 }
 </script>
+<style>
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+</style>

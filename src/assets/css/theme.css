@@ -9773,10 +9773,6 @@ h1, h2, h3, h4, h5, h6 {
     background: #fff
 }
 
-.main-wrapper .container {
-    max-width: 820px
-}
-
 .cta-section .heading {
     font-size: 2rem;
     font-weight: bold
@@ -9990,7 +9986,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .cta-section .form-inline .form-control {
-        width: 360px
+        width: 650px
     }
 }
 

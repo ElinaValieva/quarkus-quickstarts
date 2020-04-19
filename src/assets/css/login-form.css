@@ -14,15 +14,19 @@ body {
 .input-field img {
     width: 7%;
     margin-bottom: 1%;
+    margin-right: 3%;
+}
+
+.input-field label {
+    width: 90%;
 }
 
 .input-field input {
-    width: 80%;
     border: none;
     display: inline-block;
 }
 
-form {
+.base-form {
     background: white;
     width: 30%;
     margin-left: 35%;
@@ -32,12 +36,12 @@ form {
     padding: 3%;
 }
 
-button {
+.form-button {
     width: 50%;
     margin: 5% 25%;
 }
 
-a {
+.form-link a {
     width: 20%;
     margin: 10% 40%;
     font-size: 16px;
