@@ -1,5 +1,6 @@
 body {
-    background: #28a745;
+    background: url("../images/background.jpg") no-repeat;
+    background-size: 100%;
 }
 
 .input-field {
