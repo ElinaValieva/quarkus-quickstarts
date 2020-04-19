@@ -21,4 +21,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew quarkusBuild
     - name: IT Test with Gradle
-        run: ./gradlew test
+      run: ./gradlew test
