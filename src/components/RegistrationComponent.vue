@@ -46,6 +46,14 @@ export default {
     },
     methods: {
         register: function () {
+            this.$store.dispatch('register', {
+                userName: this.username,
+                password: this.password,
+                firstName: this.name,
+                lastName: this.lastName
+            }).then(() => {
+                this.$router.push('/login')
+            }).catch(error => alert(JSON.stringify(error.message)));
         }
     }
 }

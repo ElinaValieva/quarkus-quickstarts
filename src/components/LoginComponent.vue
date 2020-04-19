@@ -26,12 +26,18 @@ export default {
     name: "LoginComponent",
     data() {
         return {
-            username: '',
-            password: ''
+            username: null,
+            password: null
         }
     },
     methods: {
         login: function () {
+            this.$store.dispatch('login', {
+                username: this.username,
+                password: this.password
+            }).then(() => {
+                this.$router.push('/blog')
+            }).catch(error => alert(JSON.stringify(error.message)));
         }
     }
 }
