@@ -1,4 +1,4 @@
-# blog-ui
+# blog-ui ![Node.js CI](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui/workflows/Node.js%20CI/badge.svg?branch=master)
 
 ## Project setup
 ```
