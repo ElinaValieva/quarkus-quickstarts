@@ -4,6 +4,7 @@ import com.quarkus.model.Comment;
 import com.quarkus.model.Post;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import io.restassured.http.Header;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -14,6 +15,7 @@ public class BlogResourceForErrorTest {
     @Test
     void getPostForUnauthorizedUser() {
         given()
+                .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
                 .pathParam("tags", 1)
                 .when().get("blog/posts/tags/{tags}")
@@ -24,6 +26,7 @@ public class BlogResourceForErrorTest {
     @Test
     void getPostsByTitleForUnauthorizedUser() {
         given()
+                .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
                 .pathParam("title", "Quarkus application")
                 .when().get("blog/posts/title/{title}")
@@ -34,6 +37,7 @@ public class BlogResourceForErrorTest {
     @Test
     void getCommentsForPostForUnauthorizedUser() {
         given()
+                .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
                 .pathParam("id", 1)
                 .when().get("blog/posts/{id}/comments")
@@ -44,6 +48,7 @@ public class BlogResourceForErrorTest {
     @Test
     void createCommentForPostForUnauthorizedUser() {
         given()
+                .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
                 .pathParam("id", 1)
                 .body(Comment.builder().commentText("Quarkus comment").build())
@@ -55,6 +60,7 @@ public class BlogResourceForErrorTest {
     @Test
     void createPostForUnauthorizedUser() {
         given()
+                .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
                 .pathParam("id", 1)
                 .body(new Post("Quarkus Title", "Quarkus text", "#quarkus"))
@@ -66,6 +72,7 @@ public class BlogResourceForErrorTest {
     @Test
     void getPostsForUnauthorizedUser() {
         given()
+                .header(new Header("Authorization", "Bearer " + null))
                 .contentType(ContentType.JSON)
                 .pathParam("id", 1)
                 .when().get("blog/posts/{id}")
