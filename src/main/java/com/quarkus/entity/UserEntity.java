@@ -6,7 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.List;
 
 @Table(name = "user")
@@ -30,7 +38,7 @@ public class UserEntity {
 
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "credential_id")
     private CredentialEntity credentialEntity;
 
     @Cascade({org.hibernate.annotations.CascadeType.DELETE})
