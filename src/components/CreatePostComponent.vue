@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import UserInfoComponent from "./UserInfoComponent";
+import UserInfoComponent from "./UserComponent";
 
 export default {
     name: "PostBlogComponent",
@@ -48,4 +48,4 @@ export default {
 }
 </script>
 
-<style src="../assets/css/theme-1.css"></style>
+<style src="../assets/css/theme.css"></style>
