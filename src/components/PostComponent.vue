@@ -36,6 +36,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style src="../assets/css/theme.css"></style>
