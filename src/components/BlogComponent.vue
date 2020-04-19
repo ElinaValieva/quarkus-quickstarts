@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import PostsComponent from "./performed/RetrievePostsComponent";
-import UserComponent from "./performed/UserComponent";
+import PostsComponent from "./RetrievePostsComponent";
+import UserComponent from "./UserComponent";
 
 export default {
     name: "BlogComponent",

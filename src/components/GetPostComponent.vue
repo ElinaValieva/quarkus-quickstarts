@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import InfoComponent from "./performed/UserComponent";
+import InfoComponent from "./UserComponent";
 
 export default {
     name: "PostInfoComponent",

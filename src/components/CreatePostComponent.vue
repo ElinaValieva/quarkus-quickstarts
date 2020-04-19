@@ -61,4 +61,4 @@ export default {
 }
 </script>
 
-<style src="../../assets/css/theme.css"></style>
+<style src="../assets/css/theme.css"></style>

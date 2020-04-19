@@ -9,7 +9,7 @@
                 </button>
                 <div id="navigation" class="collapse navbar-collapse flex-column">
                     <div class="profile-section pt-3 pt-lg-0">
-                        <img class="profile-image mb-3 rounded-circle mx-auto" src="../../assets/images/profile.png"
+                        <img class="profile-image mb-3 rounded-circle mx-auto" src="../assets/images/profile.png"
                              alt="image">
                         <div class="bio mb-3">Hi, my name is {{user.firstName}} {{user.lastName}}. Briefly introduce
                             yourself here. You can also provide a link to the about page.

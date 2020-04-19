@@ -5,7 +5,7 @@
                 <div class="item mb-5">
                     <div class="media">
                         <img class="mr-3 img-fluid post-thumb d-none d-md-flex"
-                             src="../../assets/images/blog-post-thumb.jpg" alt="image">
+                             src="../assets/images/blog-post-thumb.jpg" alt="image">
                         <div class="media-body">
                             <h3 class="title mb-1"><a href="blog-post.html">{{post.title}}</a></h3>
                             <div class="meta mb-1">

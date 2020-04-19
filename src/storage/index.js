@@ -12,10 +12,7 @@ export const pathSettings = {
     register: '/register',
     createPost: '/posts/post',
     getUserInfo: '/user',
-    getPosts: '/posts/all',
-    auth: '/auth',
-    token: 'access_token',
-    id: 'user_id'
+    getPosts: '/posts/all'
 };
 
 const vuexLocalStorage = new VuexPersist({
