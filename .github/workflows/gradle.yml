@@ -18,7 +18,9 @@ jobs:
         java-version: 11
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Clean build with Gradle
+      run: ./gradlew clean
     - name: Build with Gradle
       run: ./gradlew quarkusBuild
     - name: IT Test with Gradle
-      run: ./gradle test --no-daemon -Dorg.gradle.debug=true
+      run: ./gradlew test
