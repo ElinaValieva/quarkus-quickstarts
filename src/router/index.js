@@ -30,10 +30,10 @@ export default new Router({
         name: 'BlogComponent',
         component: BlogComponent
     }, {
-        path: '/blog/posts',
+        path: '/blog/post',
         name: 'GetPostComponent',
-        component: GetPostComponent
-    }
-    ]
+        component: GetPostComponent,
+        props: true
+    }]
 })
 

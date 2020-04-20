@@ -7,7 +7,11 @@
                         <img class="mr-3 img-fluid post-thumb d-none d-md-flex"
                              src="../assets/images/blog-post-thumb.jpg" alt="image">
                         <div class="media-body">
-                            <h3 class="title mb-1"><a href="blog-post.html">{{post.title}}</a></h3>
+                            <h3 class="title mb-1">
+                                <router-link v-bind:to="{ name: 'GetPostComponent', params: { post: post }}">
+                                    {{post.title}}
+                                </router-link>
+                            </h3>
                             <div class="meta mb-1">
                                 <span class="date">Published {{post.date}}</span>
                                 <span class="comment">{{post.tags}}</span>

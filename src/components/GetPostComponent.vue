@@ -26,7 +26,7 @@
 import InfoComponent from "./UserComponent";
 
 export default {
-    name: "PostInfoComponent",
+    name: "GetPostComponent",
     components: {
         InfoComponent
     },
