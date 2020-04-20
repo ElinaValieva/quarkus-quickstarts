@@ -5,7 +5,7 @@ import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex);
 
-axios.defaults.baseURL = 'http://localhost:8090/blog';
+axios.defaults.baseURL = process.env.VUE_APP_SERVER;
 
 export const pathSettings = {
     login: '/login',
