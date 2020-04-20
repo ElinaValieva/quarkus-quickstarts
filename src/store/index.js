@@ -28,6 +28,9 @@ export default new Vuex.Store({
         posts: []
     },
     getters: {
+        isAuth(state) {
+            return state.token != null
+        },
         userInfo(state) {
             return state.user
         },
