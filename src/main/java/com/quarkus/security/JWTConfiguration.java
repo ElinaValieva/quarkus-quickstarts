@@ -1,30 +1,32 @@
 package com.quarkus.security;
 
+import lombok.Data;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.springframework.stereotype.Component;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-@Component
+@Data
+@ApplicationScoped
 public class JWTConfiguration {
 
     @Inject
     @ConfigProperty(name = "quarkus.jwt.duration")
-    public Long duration;
+    private Long duration;
 
     @Inject
     @ConfigProperty(name = "mp.jwt.verify.issuer")
-    public String issuer;
+    private String issuer;
 
     @Inject
     @ConfigProperty(name = "quarkus.jwt.password.secret")
-    public String secret;
+    private String secret;
 
     @Inject
     @ConfigProperty(name = "quarkus.jwt.password.iteration")
-    public Integer iteration;
+    private Integer iteration;
 
     @Inject
     @ConfigProperty(name = "quarkus.jwt.password.key.length")
-    public Integer keyLength;
+    private Integer keyLength;
 }
