@@ -2,9 +2,9 @@ package com.quarkus.security;
 
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
@@ -13,10 +13,10 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
 @Component
-@AllArgsConstructor
 public class TokenGenerator {
 
-    private final JWTConfiguration jwtConfiguration;
+    @Inject
+    JWTConfiguration jwtConfiguration;
 
     public String generateToken(String username) throws Exception {
         String privateKeyLocation = "/privatekey.pem";

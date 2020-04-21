@@ -30,21 +30,17 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(H2DatabaseTestResource.class)
 public class BlogResourceTest {
 
-    private final UserRepository userRepository;
-    private final CredentialsRepository credentialsRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final TokenGenerator tokenGenerator;
+    @Inject
+    UserRepository userRepository;
 
     @Inject
-    public BlogResourceTest(UserRepository userRepository,
-                            CredentialsRepository credentialsRepository,
-                            PasswordEncoder passwordEncoder,
-                            TokenGenerator tokenGenerator) {
-        this.userRepository = userRepository;
-        this.credentialsRepository = credentialsRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.tokenGenerator = tokenGenerator;
-    }
+    CredentialsRepository credentialsRepository;
+
+    @Inject
+    PasswordEncoder passwordEncoder;
+
+    @Inject
+    TokenGenerator tokenGenerator;
 
     private String token;
 

@@ -12,18 +12,22 @@ import com.quarkus.repository.UserRepository;
 import com.quarkus.security.PasswordEncoder;
 import com.quarkus.service.UserService;
 import com.quarkus.util.ModelMapper;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
+@ApplicationScoped
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final CredentialsRepository credentialsRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Inject
+    UserRepository userRepository;
+
+    @Inject
+    CredentialsRepository credentialsRepository;
+
+    @Inject
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void register(UserDetail userDetail) {

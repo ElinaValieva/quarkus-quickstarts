@@ -5,20 +5,20 @@ import com.quarkus.entity.UserEntity;
 import com.quarkus.model.Post;
 import com.quarkus.repository.PostRepository;
 import com.quarkus.service.PostService;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static com.quarkus.util.ModelMapper.mapPostEntitiesToPost;
 
-@Service
-@AllArgsConstructor
+@ApplicationScoped
 public class PostServiceImpl implements PostService {
 
-    private final PostRepository postRepository;
+    @Inject
+    PostRepository postRepository;
 
     @Override
     public Long createPost(Post post, UserEntity userEntity) {
