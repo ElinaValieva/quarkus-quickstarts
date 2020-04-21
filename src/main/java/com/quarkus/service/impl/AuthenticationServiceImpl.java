@@ -6,15 +6,18 @@ import com.quarkus.model.Credential;
 import com.quarkus.security.TokenGenerator;
 import com.quarkus.service.AuthenticationService;
 import com.quarkus.service.UserService;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
-@AllArgsConstructor
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+@ApplicationScoped
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private final UserService userService;
-    private final TokenGenerator tokenGenerator;
+    @Inject
+    UserService userService;
+
+    @Inject
+    TokenGenerator tokenGenerator;
 
     @Override
     public String auth(Credential credential) {

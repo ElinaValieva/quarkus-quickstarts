@@ -8,17 +8,17 @@ import com.quarkus.model.Comment;
 import com.quarkus.repository.PostRepository;
 import com.quarkus.service.CommentService;
 import com.quarkus.util.ModelMapper;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
-@Service
-@AllArgsConstructor
+@ApplicationScoped
 public class CommentServiceImpl implements CommentService {
 
-    private final PostRepository postRepository;
+    @Inject
+    PostRepository postRepository;
 
     @Override
     public void createCommentForPost(String comment, Long id) {

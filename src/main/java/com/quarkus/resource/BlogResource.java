@@ -9,10 +9,10 @@ import com.quarkus.service.AuthenticationService;
 import com.quarkus.service.CommentService;
 import com.quarkus.service.PostService;
 import com.quarkus.service.UserService;
-import lombok.AllArgsConstructor;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -23,13 +23,19 @@ import java.util.List;
 @Path("/blog")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@AllArgsConstructor
 public class BlogResource {
 
-    private final UserService userService;
-    private final PostService postService;
-    private final AuthenticationService authenticationService;
-    private final CommentService commentService;
+    @Inject
+    UserService userService;
+
+    @Inject
+    PostService postService;
+
+    @Inject
+    AuthenticationService authenticationService;
+
+    @Inject
+    CommentService commentService;
 
     @GET
     @Path("/posts")

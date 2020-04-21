@@ -2,9 +2,9 @@ package com.quarkus.security;
 
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
@@ -12,11 +12,11 @@ import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
-@Component
-@AllArgsConstructor
+@ApplicationScoped
 public class TokenGenerator {
 
-    private final JWTConfiguration jwtConfiguration;
+    @Inject
+    JWTConfiguration jwtConfiguration;
 
     public String generateToken(String username) throws Exception {
         String privateKeyLocation = "/privatekey.pem";
@@ -24,10 +24,10 @@ public class TokenGenerator {
 
         JwtClaimsBuilder claimsBuilder = Jwt.claims();
         long currentTimeInSecs = currentTimeInSecs();
-        claimsBuilder.issuer(jwtConfiguration.issuer);
+        claimsBuilder.issuer(jwtConfiguration.getIssuer());
         claimsBuilder.subject(username);
         claimsBuilder.issuedAt(currentTimeInSecs);
-        claimsBuilder.expiresAt(currentTimeInSecs + jwtConfiguration.duration);
+        claimsBuilder.expiresAt(currentTimeInSecs + jwtConfiguration.getDuration());
         claimsBuilder.groups("FOLLOWER");
 
         return claimsBuilder.jws().signatureKeyId(privateKeyLocation).sign(privateKey);
