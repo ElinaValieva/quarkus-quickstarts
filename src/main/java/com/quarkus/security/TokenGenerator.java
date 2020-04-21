@@ -2,9 +2,9 @@ package com.quarkus.security;
 
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
@@ -15,8 +15,11 @@ import java.util.Base64;
 @ApplicationScoped
 public class TokenGenerator {
 
-    @Inject
-    JWTConfiguration jwtConfiguration;
+    @ConfigProperty(name = "quarkus.jwt.duration")
+    Long duration;
+
+    @ConfigProperty(name = "mp.jwt.verify.issuer")
+    String issuer;
 
     public String generateToken(String username) throws Exception {
         String privateKeyLocation = "/privatekey.pem";
@@ -24,10 +27,10 @@ public class TokenGenerator {
 
         JwtClaimsBuilder claimsBuilder = Jwt.claims();
         long currentTimeInSecs = currentTimeInSecs();
-        claimsBuilder.issuer(jwtConfiguration.getIssuer());
+        claimsBuilder.issuer(issuer);
         claimsBuilder.subject(username);
         claimsBuilder.issuedAt(currentTimeInSecs);
-        claimsBuilder.expiresAt(currentTimeInSecs + jwtConfiguration.getDuration());
+        claimsBuilder.expiresAt(currentTimeInSecs + duration);
         claimsBuilder.groups("FOLLOWER");
 
         return claimsBuilder.jws().signatureKeyId(privateKeyLocation).sign(privateKey);
