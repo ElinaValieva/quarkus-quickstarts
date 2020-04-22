@@ -37,9 +37,9 @@ Without GraalVM:
 Swagger Api available by path `/api`
 
 &nbsp;
-## Openshift deployment :triangular_flag_on_post:
+## Openshift deployment with s2i :triangular_flag_on_post:
 ```console
-oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/Elina/quarkus-quickstarts.git \
+oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/ElinaValieva/quarkus-quickstarts.git \
               --context-dir=. --name=quarkus-quickstart-native
               
 oc expose svc/quarkus-quickstart-native
