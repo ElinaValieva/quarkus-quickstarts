@@ -37,7 +37,7 @@ Without GraalVM:
 Swagger Api available by path `/api`
 
 #### Health check
-Swagger Api available by path `/health`
+Apllication health check available by path `/health`
 
 &nbsp;
 ## Docker build :whale:
@@ -53,14 +53,14 @@ docker run -i --rm -p 8080:8080 quarkus-blog-api:jvm
 
 &nbsp;
 ## Openshift deployment :triangular_flag_on_post:
-Deploying using **s2i**:
+Deployment using **s2i**:
 ```console
 oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/ElinaValieva/quarkus-quickstarts.git \
               --context-dir=. --name=quarkus-blog-api
               
 oc expose svc/quarkus-blog-api
 ```
-Deploying using **docker image**:
+Deployment using **docker image**:
 ```console
 oc new-app elvaliev/quarkus-blog-api:latest
 oc expose svc/quarkus-blog-api
