@@ -1,24 +1,21 @@
-# blog-ui ![Node.js CI](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui/workflows/Node.js%20CI/badge.svg?branch=master)
-
-## Project setup
+# Vue front-end application for Quarkus QuickStart Blog ![Node.js CI](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui/workflows/Node.js%20CI/badge.svg?branch=master)
+![](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui/blob/master/img.gif)
+&nbsp;
+## Project setup :hammer:
+#### Setup project:
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+#### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
+#### Compiles and minifies for production
 ```
 npm run build
 ```
-
-### Lints and fixes files
+&nbsp;
+## Run with Docker compose :whale:
 ```
-npm run lint
+docker-compose up
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
