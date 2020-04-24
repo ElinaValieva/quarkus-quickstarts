@@ -18,7 +18,7 @@ services:
     image: elvaliev/blog-api
     container_name: blog-server
     ports:
-      - 8099:8090
+      - 8090:8090
     networks:
       - tasks-network
 
