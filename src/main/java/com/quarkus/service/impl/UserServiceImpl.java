@@ -12,11 +12,13 @@ import com.quarkus.repository.UserRepository;
 import com.quarkus.security.PasswordEncoder;
 import com.quarkus.service.UserService;
 import com.quarkus.util.ModelMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Optional;
 
+@Slf4j
 @ApplicationScoped
 public class UserServiceImpl implements UserService {
 
@@ -31,6 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserDetail userDetail) {
+        log.debug("Registering user: {}", userDetail);
+
         Optional<CredentialEntity> optionalCredentialEntity = credentialsRepository.findByUsername(userDetail.getUsername());
 
         if (optionalCredentialEntity.isPresent())
@@ -50,6 +54,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isAuthorized(Credential credential) {
+        log.debug("Check authorization for user with username: {}", credential.getUsername());
+
         String password = passwordEncoder.encode(credential.getPassword());
         credentialsRepository.findByUsernameAndPassword(credential.getUsername(), password)
                 .orElseThrow(() -> new BusinessLogicAuthException(ErrorMessage.NOT_AUTHORIZED));
@@ -58,6 +64,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity findUserEntityByUsername(String username) {
+        log.debug("Find user by username: {}", username);
+
         CredentialEntity credentialEntity = credentialsRepository.findByUsername(username)
                 .orElseThrow(() -> new BusinessLogicAuthException(ErrorMessage.USER_NOT_FOUND));
 
@@ -67,6 +75,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetail findUserByUsername(String username) {
+        log.debug("Find user by username: {}", username);
+
         return ModelMapper.mapUserEntityToUserDetail(findUserEntityByUsername(username));
     }
 }

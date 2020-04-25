@@ -2,6 +2,7 @@ package com.quarkus.security;
 
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -12,6 +13,7 @@ import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
+@Slf4j
 @ApplicationScoped
 public class TokenGenerator {
 
@@ -22,6 +24,8 @@ public class TokenGenerator {
     String issuer;
 
     public String generateToken(String username) throws Exception {
+        log.debug("Generating token with username: {}", username);
+
         String privateKeyLocation = "/privatekey.pem";
         PrivateKey privateKey = readPrivateKey(privateKeyLocation);
 
