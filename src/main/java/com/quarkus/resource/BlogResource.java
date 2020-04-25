@@ -42,7 +42,7 @@ public class BlogResource {
     @RolesAllowed("FOLLOWER")
     public Response getPosts(@Context SecurityContext sec) {
         String username = sec.getUserPrincipal().getName();
-        UserEntity userEntity = userService.findUserEntityByUsername(username);
+        UserEntity userEntity = userService.getUserEntityByUsername(username);
         List<Post> posts = postService.getUserPosts(userEntity);
         return Response.ok(posts).build();
     }
@@ -60,7 +60,7 @@ public class BlogResource {
     @RolesAllowed("FOLLOWER")
     public Response getUserInfo(@Context SecurityContext sec) {
         String username = sec.getUserPrincipal().getName();
-        UserDetail userDetail = userService.findUserByUsername(username);
+        UserDetail userDetail = userService.getUserByUsername(username);
         return Response.ok(userDetail).build();
     }
 
@@ -69,7 +69,7 @@ public class BlogResource {
     @RolesAllowed("FOLLOWER")
     public Response createPost(@Context SecurityContext sec, Post post) {
         String username = sec.getUserPrincipal().getName();
-        UserEntity userEntity = userService.findUserEntityByUsername(username);
+        UserEntity userEntity = userService.getUserEntityByUsername(username);
         Long postId = postService.createPost(post, userEntity);
         return Response.ok(postId).build();
     }

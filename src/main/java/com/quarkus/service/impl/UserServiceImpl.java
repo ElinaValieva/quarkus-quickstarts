@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findUserEntityByUsername(String username) {
+    public UserEntity getUserEntityByUsername(String username) {
         log.debug("Find user by username: {}", username);
 
         CredentialEntity credentialEntity = credentialsRepository.findByUsername(username)
@@ -74,9 +74,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetail findUserByUsername(String username) {
+    public UserDetail getUserByUsername(String username) {
         log.debug("Find user by username: {}", username);
 
-        return ModelMapper.mapUserEntityToUserDetail(findUserEntityByUsername(username));
+        return ModelMapper.mapUserEntityToUserDetail(getUserEntityByUsername(username));
     }
 }

@@ -10,7 +10,7 @@ public interface UserService {
 
     boolean isAuthorized(Credential credential);
 
-    UserEntity findUserEntityByUsername(String username);
+    UserEntity getUserEntityByUsername(String username);
 
-    UserDetail findUserByUsername(String username);
+    UserDetail getUserByUsername(String username);
 }
