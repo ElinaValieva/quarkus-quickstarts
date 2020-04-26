@@ -65,3 +65,15 @@ Deployment using **docker image**:
 oc new-app elvaliev/quarkus-blog-api:latest
 oc expose svc/quarkus-blog-api
 ```
+
+
+&nbsp;
+## AWS deployment :large_orange_diamond:
+For native build use - sam.native.yaml
+```console
+sam local start-api --template sam.jvm.yaml
+
+sam package --template-file sam.jvm.yaml --output-template-file packaged.yaml --s3-bucket <YOUR_S3_BUCKET>
+
+Deploy your package: sam deploy --template-file packaged.yaml --capabilities CAPABILITY_IAM --stack-name <YOUR_STACK_NAME>
+```
