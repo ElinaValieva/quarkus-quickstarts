@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: AWS Serverless Quarkus HTTP - net.dpgmedia::xtra-local-importer-quarkus
+Description: AWS Serverless Quarkus HTTP - com.aws::hello-http-lambda
 Globals:
   Api:
     EndpointConfiguration: REGIONAL
@@ -8,7 +8,7 @@ Globals:
       - "*/*"
 
 Resources:
-  XtraLocalImporterQuarkusFunction:
+  HelloHttpLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
@@ -25,8 +25,8 @@ Resources:
             Method: any
 
 Outputs:
-  XtraLocalImporterQuarkusApi:
+  HelloHttpLambdaApi:
     Description: URL for application
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/'
     Export:
-      Name: XtraLocalImporterQuarkusApi
+      Name: HelloHttpLambdaApi
