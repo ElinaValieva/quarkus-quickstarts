@@ -20,7 +20,7 @@ jobs:
       run: chmod +x gradlew
     - name: Clean build with Gradle
       run: ./gradlew clean
-    - name: Build with Gradle
-      run: ./gradlew quarkusBuild
     - name: IT Test with Gradle
       run: ./gradlew test
+    - name: Build with Gradle with pushing image
+      run: ./gradlew quarkusBuild -Dquarkus.container-image.username=${{secrets.DOCKERHUB_USERNAME}} -Dquarkus.container-image.password=${{secrets.DOCKERHUB_PASSWORD}} -Dquarkus.container-image.push=true
