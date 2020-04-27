@@ -95,11 +95,13 @@ oc expose svc/blog-api
 
 &nbsp;
 ## AWS deployment :triangular_flag_on_post:
-For native build use - sam.native.yaml
+For native build use template `build/sam.native.yaml`. 
 ```console
-sam local start-api --template sam.jvm.yaml
+sam local start-api --template build/sam.jvm.yaml
 
-sam package --template-file sam.jvm.yaml --output-template-file packaged.yaml --s3-bucket <YOUR_S3_BUCKET>
+sam package --template-file build/sam.jvm.yaml --output-template-file packaged.yaml --s3-bucket <YOUR_S3_BUCKET>
 
 sam deploy --template-file packaged.yaml --capabilities CAPABILITY_IAM --stack-name <YOUR_STACK_NAME>
 ```
+
+For avoiding timeout error (502 - BAD GATEWAY) - increase `Timeout` in `build/sam.jvm.yaml`
