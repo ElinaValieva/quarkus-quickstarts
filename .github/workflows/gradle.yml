@@ -23,7 +23,7 @@ jobs:
     - name: IT Test with Gradle
       run: ./gradlew test
     - name: Build with Gradle with pushing image
-       env:
+      env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       run: ./gradlew quarkusBuild -Dquarkus.container-image.username=${{env.DOCKERHUB_USERNAME}} -Dquarkus.container-image.password=${{env.DOCKERHUB_PASSWORD}} -Dquarkus.container-image.push=true
