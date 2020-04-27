@@ -21,6 +21,8 @@ jobs:
         java-version: 11
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Echo
+      run: echo $DOCKERHUB_USERNAME $DOCKERHUB_PASSWORD
     - name: Clean build with Gradle
       run: ./gradlew clean
     - name: IT Test with Gradle
