@@ -25,7 +25,7 @@
                     <input class="form-control" type="password" placeholder="password" v-model="password" required/>
                 </label>
             </div>
-            <button class="btn btn-success form-button" type="submit">SING IN</button>
+            <button class="btn btn-success form-button" :disabled="submitted">SING IN</button>
             <a class="form-link">
                 <router-link to="/login">Sing in?</router-link>
             </a>
@@ -41,22 +41,27 @@ export default {
             username: '',
             name: '',
             lastName: '',
-            password: ''
+            password: '',
+            submitted: false
         }
     },
     methods: {
         register: function () {
+            this.submitted = true;
             this.$store.dispatch('register', {
                 userName: this.username,
                 password: this.password,
                 firstName: this.name,
                 lastName: this.lastName
             }).then(() => {
-                this.$router.push('/login')
-            }).catch(error => alert(JSON.stringify(error.message)));
+                this.submitted = false;
+                this.$router.push('/login');
+            }).catch(error => {
+                this.submitted = false;
+                alert(JSON.stringify(error.message));
+            });
         }
     }
 }
 </script>
-
 <style src="../assets/css/login-form.css"></style>

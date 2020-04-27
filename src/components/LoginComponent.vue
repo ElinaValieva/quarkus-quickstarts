@@ -13,7 +13,7 @@
                     <input class="form-control" type="password" placeholder="password" v-model="password" required/>
                 </label>
             </div>
-            <button class="btn btn-success form-button">LOGIN</button>
+            <button class="btn btn-success form-button" :disabled="submitted">LOGIN</button>
             <a class="form-link">
                 <router-link to="/registration">Sing up?</router-link>
             </a>
@@ -27,18 +27,24 @@ export default {
     data() {
         return {
             username: null,
-            password: null
+            password: null,
+            submitted: false
         }
     },
     methods: {
         login: function () {
+            this.submitted = true;
             this.$store.dispatch('login', {
                 username: this.username,
                 password: this.password
             }).then(() => {
                 this.getUserInfo();
                 this.$router.push('/blog');
-            }).catch(error => alert(JSON.stringify(error.message)));
+                this.submitted = false;
+            }).catch(error => {
+                alert(JSON.stringify(error.message));
+                this.submitted = false;
+            });
         },
         getUserInfo: function () {
             this.$store.dispatch('getUserInfo').catch(error => alert(JSON.stringify(error.message)));

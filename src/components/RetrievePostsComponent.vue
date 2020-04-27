@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow p-3 mb-5 bg-white rounded">
+    <div class="p-4 mb-5">
         <section class="blog-list px-3 py-5 p-md-5">
             <div class="container" v-for="post in posts" v-on:click.prevent :key="post.id">
                 <div class="item mb-5">
@@ -34,7 +34,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <InfoComponent/>
-        <div class="main-wrapper">
+        <div class="main-wrapper bg-white">
             <article class="blog-post px-3 py-5 p-md-5">
                 <div class="container">
                     <header class="blog-post-header">

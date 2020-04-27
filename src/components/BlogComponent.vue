@@ -1,7 +1,7 @@
 <template>
     <div>
         <UserComponent/>
-        <div class="main-wrapper">
+        <div class="main-wrapper bg-white">
             <section class="cta-section theme-bg-light py-5">
                 <div class="container text-center">
                     <h2>DevBlog - Life is for sharing</h2>
@@ -58,4 +58,5 @@ export default {
     }
 }
 </script>
+
 <style src="../assets/css/theme.css"></style>

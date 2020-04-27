@@ -43,7 +43,7 @@ html {
     font-family: sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
@@ -58,7 +58,6 @@ body {
     line-height: 1.5;
     color: #292929;
     text-align: left;
-    background-color: #fff
 }
 
 [tabindex="-1"]:focus {
@@ -8960,7 +8959,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-wrapper {
     margin-left: 280px;
-    background: #fff
 }
 
 .cta-section .heading {
@@ -8986,6 +8984,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer a {
     color: #fff
+}
+
+.blog-list {
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .blog-list .item .title {

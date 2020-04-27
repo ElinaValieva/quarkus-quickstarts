@@ -21,7 +21,7 @@
                                 <label class="sr-only" for="text">Tags</label>
                                 <textarea id="text" v-model="text" class="form-control mr-md-1" rows="20"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary" v-on:click="createPost" v-on:click.prevent>
+                            <button type="submit" class="btn btn-primary" v-on:click="createPost" v-on:click.prevent :disabled="submitted">
                                 Create post
                             </button>
                         </form>
@@ -44,18 +44,24 @@ export default {
         return {
             title: 'DevBlog - Life is for sharing',
             text: null,
-            tags: null
+            tags: null,
+            submitted: false
         }
     },
     methods: {
         createPost: function () {
+            this.submitted = true;
             this.$store.dispatch('createPost', {
                 title: this.title,
                 text: this.text,
                 tags: this.tags
             }).then(() => {
-                alert("Successfully created")
-            }).catch(error => alert(JSON.stringify(error.message)));
+                alert("Successfully created");
+                this.submitted = false;
+            }).catch(error => {
+                alert(JSON.stringify(error.message));
+                this.submitted = false;
+            });
         }
     }
 }
