@@ -1,4 +1,6 @@
-# Quarkus QuickStart Project - Simple Blog ![Java CI with Gradle](https://github.com/ElinaValieva/quarkus-blog-app/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)
+# Quarkus QuickStart Project - Simple Blog 
+![Java CI with Gradle](https://github.com/ElinaValieva/quarkus-blog-app/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)
+![.github/workflows/dockerhub-description.yml](https://github.com/ElinaValieva/quarkus-quickstarts/workflows/.github/workflows/dockerhub-description.yml/badge.svg?branch=master&event=push)
 > This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 &nbsp;
