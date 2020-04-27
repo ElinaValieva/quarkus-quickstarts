@@ -7,19 +7,33 @@
                     <div class="container text-center">
                         <h1>{{title}}</h1>
                         <form>
-                            <div class="form-group">
+                            <div class="error text-danger font-weight-bold" v-if="!$v.title.required">Title is required
+                            </div>
+                            <div class="form-group" :class="{ 'form-group--error': $v.title.$error}">
                                 <label class="sr-only" for="title">Title</label>
-                                <input type="text" id="title" v-model="title" class="form-control mr-md-1"
+                                <input type="text" id="title"
+                                       v-model.trim="$v.title.$model"
+                                       class="form-control mr-md-1"
                                        placeholder="Title">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="tags">Tags</label>
-                                <input type="text" id="tags" v-model="tags" class="form-control mr-md-1"
+                                <input type="text" id="tags"
+                                       v-model="tags"
+                                       class="form-control mr-md-1"
                                        placeholder="# Tags">
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="text">Tags</label>
-                                <textarea id="text" v-model="text" class="form-control mr-md-1" rows="20"></textarea>
+                            <div class="error text-danger font-weight-bold" v-if="!$v.text.required">Text is required
+                            </div>
+                            <div class="error text-danger font-weight-bold" v-if="!$v.text.minLength">
+                                Text must have at least {{textLength}} letters.
+                            </div>
+                            <div class="form-group" :class="{ 'form-group--error': $v.text.$error }">
+                                <label class="sr-only" for="text">Text</label>
+                                <textarea id="text"
+                                          v-model.trim="$v.text.$model"
+                                          class="form-control mr-md-1"
+                                          rows="20"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary" v-on:click="createPost" v-on:click.prevent
                                     :disabled="submitted">
@@ -35,6 +49,7 @@
 
 <script>
 import UserInfoComponent from "./UserComponent";
+import {minLength, required} from "vuelidate/src/validators";
 
 export default {
     name: "PostBlogComponent",
@@ -46,11 +61,25 @@ export default {
             title: 'DevBlog - Life is for sharing',
             text: null,
             tags: null,
-            submitted: false
+            submitted: false,
+            textLength: 10
+        }
+    },
+    validations: {
+        text: {
+            required,
+            minLength: minLength(10)
+        },
+        title: {
+            required
         }
     },
     methods: {
         createPost: function () {
+            this.$v.$touch();
+            if (this.$v.$invalid)
+                return;
+
             this.submitted = true;
             this.$store.dispatch('createPost', {
                 title: this.title,
