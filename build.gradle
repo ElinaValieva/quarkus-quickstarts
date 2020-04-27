@@ -22,6 +22,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-smallrye-openapi'
     implementation 'io.quarkus:quarkus-smallrye-health'
     implementation 'io.quarkus:quarkus-amazon-lambda-http'
+    implementation 'io.quarkus:quarkus-container-image-docker'
 
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
