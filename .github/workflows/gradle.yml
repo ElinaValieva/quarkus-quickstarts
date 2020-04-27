@@ -18,14 +18,12 @@ jobs:
         java-version: 11
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Echo
-      env:
-        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-      run: echo ${DOCKERHUB_USERNAME} ${DOCKERHUB_PASSWORD}  ${{env.DOCKERHUB_USERNAME}} ${{env.DOCKERHUB_PASSWORD}}
     - name: Clean build with Gradle
       run: ./gradlew clean
     - name: IT Test with Gradle
       run: ./gradlew test
     - name: Build with Gradle with pushing image
-      run: ./gradlew quarkusBuild -Dquarkus.container-image.username=$DOCKERHUB_USERNAME -Dquarkus.container-image.password=$DOCKERHUB_PASSWORD -Dquarkus.container-image.push=true
+       env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      run: ./gradlew quarkusBuild -Dquarkus.container-image.username=${{env.DOCKERHUB_USERNAME}} -Dquarkus.container-image.password=${{env.DOCKERHUB_PASSWORD}} -Dquarkus.container-image.push=true
