@@ -46,7 +46,13 @@ export default {
     },
     methods: {
         loadPosts() {
-            this.$store.dispatch('getPosts').catch(error => alert(JSON.stringify(error.message)));
+            this.$store.dispatch('getPosts').catch(error => {
+                this.$swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message
+                });
+            });
             return this.$store.getters.postDetails;
         },
         filterByTags(tag) {

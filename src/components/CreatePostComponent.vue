@@ -21,7 +21,8 @@
                                 <label class="sr-only" for="text">Tags</label>
                                 <textarea id="text" v-model="text" class="form-control mr-md-1" rows="20"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary" v-on:click="createPost" v-on:click.prevent :disabled="submitted">
+                            <button type="submit" class="btn btn-primary" v-on:click="createPost" v-on:click.prevent
+                                    :disabled="submitted">
                                 Create post
                             </button>
                         </form>
@@ -56,10 +57,18 @@ export default {
                 text: this.text,
                 tags: this.tags
             }).then(() => {
-                alert("Successfully created");
+                this.$swal.fire({
+                    icon: 'success',
+                    title: 'Good job!',
+                    text: 'Post successfully published'
+                });
                 this.submitted = false;
             }).catch(error => {
-                alert(JSON.stringify(error.message));
+                this.$swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message
+                });
                 this.submitted = false;
             });
         }

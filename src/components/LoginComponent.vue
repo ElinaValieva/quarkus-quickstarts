@@ -42,7 +42,11 @@ export default {
                 this.$router.push('/blog');
                 this.submitted = false;
             }).catch(error => {
-                alert(JSON.stringify(error.message));
+                this.$swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message
+                });
                 this.submitted = false;
             });
         },

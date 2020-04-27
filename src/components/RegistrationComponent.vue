@@ -58,7 +58,11 @@ export default {
                 this.$router.push('/login');
             }).catch(error => {
                 this.submitted = false;
-                alert(JSON.stringify(error.message));
+                this.$swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message
+                });
             });
         }
     }
