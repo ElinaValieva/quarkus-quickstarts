@@ -5,6 +5,7 @@
 ## Prerequisites :heavy_exclamation_mark:
  1. `JDK 11` at least - for running app
  2. `Gradle 6+` - for building package
+ 3. `Docker` - for containerization
 
 &nbsp;
 ## Quarkus lifecycle :hammer:
@@ -41,6 +42,7 @@ Apllication health check available by path `/health`
 
 &nbsp;
 ## Docker build :whale:
+#### Build and run image manually
 ```console
 ./gradlew  quarkusBuild
 ```
@@ -49,6 +51,27 @@ Specify Dockerfile `native` or `jvm` build in command parameter with option `-f`
 docker build -t quarkus-blog-api:jvm -f src/main/docker/Dockerfile.jvm .
 
 docker run -i --rm -p 8080:8080 quarkus-blog-api:jvm
+```
+#### Push your image with Quarkus
+Override parameters in `application.properties`:
+
+|Properties|Description|
+|--|--|
+|**quarkus.container-image.name**|*Name of your image* [`application name`]|
+|**quarkus.container-image.tag**|*Version* [`latest`]|
+|**quarkus.container-image.registry**| *Docker registry* [`docker.io`]|
+|**quarkus.container-image.username**| *Credentials*|
+|**quarkus.container-image.password**| *Credentials*|
+|**quarkus.container-image.build**| *Flag for building image* [`false`]|
+|**quarkus.container-image.push**| *Flag for pushing image* [`false`]|
+
+&nbsp;
+
+To push a container image for your project, quarkus.container-image.push=true needs to be set using any of the ways that Quarkus supports: 
+```console
+./gradlew  quarkusBuild -Dquarkus.container-image.username=<USERNAME> \
+                        -Dquarkus.container-image.password=<PASSWORD> \
+                        -Dquarkus.container-image.push=true
 ```
 
 &nbsp;
@@ -63,12 +86,13 @@ oc expose svc/quarkus-blog-api
 Deployment using **docker image**:
 ```console
 oc new-app elvaliev/quarkus-blog-api:latest
+
 oc expose svc/quarkus-blog-api
 ```
 
 
 &nbsp;
-## AWS deployment :large_orange_diamond:
+## AWS deployment :triangular_flag_on_post:
 For native build use - sam.native.yaml
 ```console
 sam local start-api --template sam.jvm.yaml
