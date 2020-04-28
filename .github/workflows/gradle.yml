@@ -20,7 +20,10 @@ jobs:
       run: chmod +x gradlew
     - name: Clean build with Gradle
       run: ./gradlew clean
-    - name: Build with Gradle
-      run: ./gradlew quarkusBuild
     - name: IT Test with Gradle
       run: ./gradlew test
+    - name: Build with Gradle
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      run: ./gradlew quarkusBuild -Dquarkus.container-image.username=elvaliev -Dquarkus.container-image.password=400Fefipe. -Dquarkus.container-image.push=true  --stacktrace
