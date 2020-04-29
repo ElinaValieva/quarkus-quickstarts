@@ -12,7 +12,7 @@
 ###
 
 # Build jar with gradle
-FROM gradle:jdk11 as build
+FROM gradle:jdk11 AS build
 
 ENV APP_HOME=/root/dev/myapp/
 USER root
@@ -23,7 +23,7 @@ COPY gradle $APP_HOME/gradle
 COPY . .
 RUN ./gradlew quarkusBuild
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1 as package
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1 AS package
 
 ARG JAVA_PACKAGE=java-11-openjdk-headless
 ARG RUN_JAVA_VERSION=1.3.5
