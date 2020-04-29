@@ -34,24 +34,22 @@ java -jar build/blog-1.0.0-SNAPSHOT-runner.jar
 #### Creating a native executable
 Using GraalVM:
 ```
-./gradlew buildNative
+./gradlew quarkusBuild -Dquarkus.package.type=native
 ```
 Without GraalVM:
 ```
-./gradlew buildNative --docker-build=true
+./gradlew quarkusBuild -Dquarkus.package.type=native -Dquarkus.native.container-build=true
 ```
-#### OpenApi
-Swagger Api available by path `/api`
-
-#### Health check
-Apllication health check available by path `/health`
+#### Docker run
+```console
+docker run -p 8080:8080 elvaliev/blog-api
+```
+#### OpenApi and Health Check
+Application support open api - swagger and health check
 
 &nbsp;
 ## Docker build :whale:
 #### Build and run image manually
-```console
-./gradlew  quarkusBuild
-```
 Specify Dockerfile `native` or `jvm` build in command parameter with option `-f` and run image
 ```console
 docker build -t quarkus-blog-api:jvm -f src/main/docker/Dockerfile.jvm .

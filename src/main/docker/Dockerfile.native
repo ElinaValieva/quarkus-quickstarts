@@ -14,7 +14,18 @@
 # docker run -i --rm -p 8080:8080 quarkus/blog
 #
 ###
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
+FROM quay.io/quarkus/centos-quarkus-maven:20.0.0-java11	 AS build
+
+ENV APP_HOME=/root/dev/myapp/
+USER root
+RUN mkdir -p $APP_HOME/src/main/java
+WORKDIR $APP_HOME
+COPY build.gradle gradlew gradlew.bat $APP_HOME
+COPY gradle $APP_HOME/gradle
+COPY . .
+RUN ./gradlew quarkusBuild -Dquarkus.package.type=native
+
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1 AS package
 WORKDIR /work/
 COPY build/*-runner /work/application
 
@@ -24,7 +35,7 @@ RUN chmod 775 /work /work/application \
   && chmod -R "g+rwX" /work \
   && chown -R 1001:root /work
 
-EXPOSE 8080
+EXPOSE 8090
 USER 1001
 
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
