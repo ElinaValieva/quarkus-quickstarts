@@ -23,7 +23,7 @@ WORKDIR $APP_HOME
 COPY build.gradle gradlew gradlew.bat $APP_HOME
 COPY gradle $APP_HOME/gradle
 COPY . .
-RUN ./gradlew quarkusBuild -Dquarkus.package.type=native --stacktrace
+RUN ./gradlew quarkusBuild -Dquarkus.package.type=native
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1 AS package
 WORKDIR /work/
@@ -35,7 +35,7 @@ RUN chmod 775 /work /work/application \
   && chmod -R "g+rwX" /work \
   && chown -R 1001:root /work
 
-EXPOSE 8080
+EXPOSE 8090
 USER 1001
 
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
