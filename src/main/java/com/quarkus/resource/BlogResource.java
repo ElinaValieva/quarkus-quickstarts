@@ -5,10 +5,8 @@ import com.quarkus.model.Comment;
 import com.quarkus.model.Credential;
 import com.quarkus.model.Post;
 import com.quarkus.model.UserDetail;
-import com.quarkus.service.AuthenticationService;
-import com.quarkus.service.CommentService;
-import com.quarkus.service.PostService;
-import com.quarkus.service.UserService;
+import com.quarkus.service.*;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -42,10 +40,15 @@ public class BlogResource {
     @Inject
     CommentService commentService;
 
+    @Inject
+    @RestClient
+    OpenApiDateService openApiDateService;
+
     @GET
+    @Path("/v2/{date}/{month}/date")
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello world!";
+    public String getDate(@PathParam("date") Integer monthDay, @PathParam("month") Integer monthNumber) {
+        return openApiDateService.getDateByMonth(monthDay, monthNumber);
     }
 
     @GET
