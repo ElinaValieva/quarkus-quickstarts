@@ -1,7 +1,7 @@
 # Quarkus QuickStart Project - Simple Blog 
 ![Java CI with Gradle](https://github.com/ElinaValieva/quarkus-blog-app/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)
 ![Update Docker Hub Description](https://github.com/ElinaValieva/quarkus-quickstarts/workflows/Update%20Docker%20Hub%20Description/badge.svg)
-> This project uses Quarkus, the Supersonic Subatomic Java Framework.
+> Simple blog api with Quarkus - the Supersonic Subatomic Java Framework. 
  
  Front-end application for this server: [UI for Blog](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui) :cyclone:
 
@@ -34,15 +34,15 @@ java -jar build/blog-1.0.0-SNAPSHOT-runner.jar
 #### Creating a native executable
 Using GraalVM:
 ```
-./gradlew quarkusBuild -Dquarkus.package.type=native
+./gradlew build -Dquarkus.package.type=native
 ```
 Without GraalVM:
 ```
-./gradlew quarkusBuild -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
 ```
 #### Docker run
 ```console
-docker run -p 8080:8080 elvaliev/blog-api
+docker run -p 8090:8090 elvaliev/blog-api
 ```
 #### OpenApi and Health Check
 Application support open api - swagger and health check
