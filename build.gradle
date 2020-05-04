@@ -32,6 +32,7 @@ dependencies {
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'io.quarkus:quarkus-test-h2'
+    testImplementation 'io.quarkus:quarkus-junit5-mockito'
 }
 
 group 'com.quarkus'
@@ -49,4 +50,11 @@ compileTestJava {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
 }

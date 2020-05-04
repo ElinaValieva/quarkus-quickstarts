@@ -10,7 +10,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -21,7 +23,7 @@ public class ModelMapper {
                 .title(postEntity.getTitle())
                 .text(postEntity.getText())
                 .tags(postEntity.getTags())
-                .date(new SimpleDateFormat("dd MMM").format(postEntity.getDate()))
+                .date(createDate(postEntity.getDate()))
                 .build();
     }
 
@@ -42,9 +44,15 @@ public class ModelMapper {
     public static Comment mapCommentEntityToComment(CommentEntity commentEntity) {
         return Comment.builder()
                 .commentText(commentEntity.getComment())
-                .date(new SimpleDateFormat("dd MMM").format(commentEntity.getDate()))
+                .date(createDate(commentEntity.getDate()))
                 .userDetail(mapUserEntityToUserDetail(commentEntity.getUserEntity()))
                 .build();
+    }
+
+    public static String createDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return dateFormat.format(date);
     }
 
     public static List<Comment> mapCommentEntitiesToComment(List<CommentEntity> commentEntities) {
