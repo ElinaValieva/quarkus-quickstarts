@@ -8,6 +8,7 @@ import com.quarkus.exception.BusinessLogicException;
 import com.quarkus.model.Comment;
 import com.quarkus.model.UserDetail;
 import com.quarkus.repository.PostRepository;
+import com.quarkus.util.ModelMapper;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import org.junit.jupiter.api.Assertions;
@@ -71,7 +72,7 @@ public class CommentServiceTest {
     private List<Comment> getCommentList() {
         return Collections.singletonList(Comment.builder()
                 .commentText("comment")
-                .date("01 янв.")
+                .date(ModelMapper.createDate(new Date(100)))
                 .userDetail(UserDetail.builder()
                         .username("username")
                         .firstName("first name")
