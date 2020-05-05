@@ -30,3 +30,5 @@ nb-configuration.xml
 # Gradle
 .gradle/
 build/
+
+lsp
