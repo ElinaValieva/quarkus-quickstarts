@@ -97,6 +97,10 @@ oc expose svc/blog-api
 
 &nbsp;
 ## AWS deployment :triangular_flag_on_post:
+Enable property `PawsLambdaEnabled = true` when you package jar
+```console
+gradlew -P -PawsLambdaEnabled=true quarkusBuild
+```
 For native build use template `build/sam.native.yaml`. 
 ```console
 sam local start-api --template build/sam.jvm.yaml
