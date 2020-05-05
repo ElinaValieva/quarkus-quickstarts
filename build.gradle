@@ -4,8 +4,8 @@ plugins {
 }
 
 repositories {
-     mavenLocal()
-     mavenCentral()
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
@@ -52,9 +52,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-test {
-    testLogging {
-        events "failed"
-        exceptionFormat "full"
+
+if (project.hasProperty("awsLambdaEnabled") && project.property("awsLambdaEnabled") == "true") {
+    println "AWS Packaging"
+} else {
+    println "Jar Packaging"
+    configurations {
+        runtime.exclude group: 'io.quarkus', module: 'quarkus-amazon-lambda-http'
     }
 }
