@@ -52,6 +52,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+
 if (project.hasProperty("awsLambdaEnabled") && project.property("awsLambdaEnabled") == "true") {
     println "AWS Packaging"
 } else {

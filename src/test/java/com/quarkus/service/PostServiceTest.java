@@ -4,6 +4,7 @@ import com.quarkus.entity.PostEntity;
 import com.quarkus.entity.UserEntity;
 import com.quarkus.model.Post;
 import com.quarkus.repository.PostRepository;
+import com.quarkus.util.ModelMapper;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import org.junit.jupiter.api.Assertions;
@@ -79,6 +80,6 @@ public class PostServiceTest {
     }
 
     private List<Post> getPostList() {
-        return Collections.singletonList(Post.builder().tags("test").text("text").title("test").date("01 янв.").build());
+        return Collections.singletonList(Post.builder().tags("test").text("text").title("test").date(ModelMapper.createDate(new Date(100))).build());
     }
 }
