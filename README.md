@@ -72,7 +72,7 @@ Override parameters in `application.properties`:
 &nbsp;
 
 To push a container image for your project, quarkus.container-image.push=true needs to be set using any of the ways that Quarkus supports: 
-```console
+```
 ./gradlew  quarkusBuild -Dquarkus.container-image.username=<USERNAME> \
                         -Dquarkus.container-image.password=<PASSWORD> \
                         -Dquarkus.container-image.push=true
@@ -98,8 +98,8 @@ oc expose svc/blog-api
 &nbsp;
 ## AWS deployment :triangular_flag_on_post:
 Enable property `PawsLambdaEnabled = true` when you package jar
-```console
-gradlew -P -PawsLambdaEnabled=true quarkusBuild
+```
+./gradlew -PawsLambdaEnabled=true quarkusBuild
 ```
 For native build use template `build/sam.native.yaml`. 
 ```console
