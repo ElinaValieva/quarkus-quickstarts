@@ -97,7 +97,7 @@ oc expose svc/blog-api
 
 &nbsp;
 ## AWS deployment :triangular_flag_on_post:
-Enable property `PawsLambdaEnabled = true` when you package jar
+Enable property `awsLambdaEnabled = true` when you package `jar`
 ```
 ./gradlew -PawsLambdaEnabled=true quarkusBuild
 ```
