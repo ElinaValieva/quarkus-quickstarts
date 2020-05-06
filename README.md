@@ -83,7 +83,7 @@ To push a container image for your project, quarkus.container-image.push=true ne
 ## Openshift deployment :triangular_flag_on_post:
 Deployment using **s2i**:
 ```console
-oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:19.3.1-java11~https://github.com/ElinaValieva/quarkus-quickstarts.git \
+oc new-app quay.io/quarkus/ubi-quarkus-native-s2i:20.0.0-java11~https://github.com/ElinaValieva/quarkus-quickstarts.git \
               --context-dir=. --name=quarkus-blog-api
               
 oc expose svc/quarkus-blog-api
@@ -93,6 +93,15 @@ Deployment using **docker image**:
 oc new-app elvaliev/blog-api:latest
 
 oc expose svc/blog-api
+```
+Deployment using **template**:
+```console
+oc tag elvaliev/blog-api:latest
+
+oc process NAMESPACE_NAME=<OPENSHIFT-PROJECT> \
+           SELECTOR_APP_NAME=<SELECTOR> \
+           HOST_NAME=<APPLICATION_HOST> \
+           -f OpenShiftTemplate.yaml | oc apply -f-
 ```
 
 

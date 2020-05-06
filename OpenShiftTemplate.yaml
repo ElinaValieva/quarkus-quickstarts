@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: my-template
+objects:
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+      labels:
+        ${TAG}: ${SELECTOR_APP_NAME}
+      name: ${APP_NAME}
+      namespace: ${NAMESPACE_NAME}
+  spec:
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        app: ${APP_NAME}
+        deploymentconfig: ${APP_NAME}
+      strategy:
+        activeDeadlineSeconds: 21600
+        resources: {}
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          annotations:
+            openshift.io/generated-by: OpenShiftNewApp
+          creationTimestamp: null
+          labels:
+            app: ${APP_NAME}
+            deploymentconfig: ${APP_NAME}
+        spec:
+          containers:
+            - env:
+              name: ${APP_NAME}
+              ports:
+                - containerPort: 8090
+                  protocol: TCP
+              resources: {}
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+      test: false
+      triggers:
+        - type: ConfigChange
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - ${APP_NAME}
+            from:
+              kind: ImageStreamTag
+              name: 'blog-api:latest'
+              namespace: ${NAMESPACE_NAME}
+          type: ImageChange
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+        ${TAG}: ${SELECTOR_APP_NAME}
+    name: ${APP_NAME}
+    namespace: ${NAMESPACE_NAME}
+  spec:
+    ports:
+        - name: 80-tcp
+          port: 80
+          protocol: TCP
+          targetPort: 8090
+    selector:
+        app: ${APP_NAME}
+        deploymentconfig: ${APP_NAME}
+  sessionAffinity: None
+  type: ClusterIP
+  status:
+    loadBalancer: {}
+- kind: Route
+  apiVersion: v1
+  metadata:
+    labels:
+        ${TAG}: ${SELECTOR_APP_NAME}
+    name: ${APP_NAME}
+    namespace: ${NAMESPACE_NAME}
+  spec:
+    host: ${HOST_NAME}
+    port:
+        targetPort: 80-tcp
+    to:
+        kind: Service
+        name: ${APP_NAME}
+        weight: 100
+    wildcardPolicy: None
+parameters:
+- name: NAMESPACE_NAME
+- name: SELECTOR_APP_NAME
+- name: APP_NAME
+  value: quarkus-blog-api
+- name: HOST_NAME
+- name: TAG
+  value: app
