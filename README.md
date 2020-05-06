@@ -81,12 +81,11 @@ To push a container image for your project, quarkus.container-image.push=true ne
 
 &nbsp;
 ## Openshift deployment :triangular_flag_on_post:
-Deployment using **s2i**:
+Deployment using **kubernetes template**:
 ```console
-oc new-app registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift~https://github.com/ElinaValieva/quarkus-quickstarts.git \
-              --context-dir=. --name=quarkus-blog-api
-              
-oc expose svc/quarkus-blog-api
+oc create -f build/kubernetes/openshift.yml
+
+oc tag elvaliev/blog-api blog:1.0.0-SNAPSHOT
 ```
 Deployment using **docker image**:
 ```console
