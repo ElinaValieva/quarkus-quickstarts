@@ -50,11 +50,13 @@ Application support open api - swagger and health check
 &nbsp;
 ## Docker build :whale:
 #### Build and run image manually
-Specify Dockerfile `native` or `jvm` build in command parameter with option `-f` and run image
-```console
-docker build -t quarkus-blog-api:jvm -f src/main/docker/Dockerfile.jvm .
+Application supports multiple Dockerfiles with different extentions `.jvm`, `.multistage` and `.native`. Extention `.jvm` used in `quarkus-container-image-docker` in packaging with next push to docker registry. 
 
-docker run -i --rm -p 8080:8080 quarkus-blog-api:jvm
+Specify Dockerfile `native` or `multistage` build in command parameter with option `-f` and run image: 
+```console
+docker build -t blog-api -f src/main/docker/Dockerfile.multistage .
+
+docker run -i --rm -p 8090:8090 blog-api
 ```
 #### Push your image with Quarkus
 Override parameters in `application.properties`:
@@ -66,7 +68,6 @@ Override parameters in `application.properties`:
 |**quarkus.container-image.registry**| *Docker registry* [`docker.io`]|
 |**quarkus.container-image.username**| *Credentials*|
 |**quarkus.container-image.password**| *Credentials*|
-|**quarkus.container-image.build**| *Flag for building image* [`false`]|
 |**quarkus.container-image.push**| *Flag for pushing image* [`false`]|
 
 &nbsp;
