@@ -1,5 +1,5 @@
 ####
-# This Dockerfile is used in order to build a container that runs the Quarkus application in native (no JVM) mode
+# This Dockerfile.native is used in order to build a container that runs the Quarkus application in native (no JVM) mode
 # docker build -t quarkus-quickstart:native -f src/main/docker/Dockerfile.native .
 # docker run -i --rm -p 8090:8090 quarkus-quickstart:native
 ###
