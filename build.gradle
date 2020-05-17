@@ -53,7 +53,10 @@ java {
 }
 
 
-if (project.hasProperty("awsLambdaEnabled") && project.property("awsLambdaEnabled") != "true") {
+if (project.hasProperty("awsLambdaEnabled") && project.property("awsLambdaEnabled") == "true") {
+    println "AWS Packaging"
+} else {
+    println "Jar Packaging"
     configurations {
         runtime.exclude group: 'io.quarkus', module: 'quarkus-amazon-lambda-http'
     }
