@@ -20,9 +20,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd blog-ui
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - run: |
+        cd blog-ui
+        npm ci
+        npm run build --if-present
+        npm test
       env:
         CI: true
