@@ -3,8 +3,6 @@
 ![Update Docker Hub Description](https://github.com/ElinaValieva/quarkus-quickstarts/workflows/Update%20Docker%20Hub%20Description/badge.svg)
 > Simple blog api with Quarkus - the Supersonic Subatomic Java Framework. 
  
- Front-end application for this server: [UI for Blog](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui) :cyclone:
-
 &nbsp;
 ## Prerequisites :heavy_exclamation_mark:
  1. `JDK 11` at least - for running app
