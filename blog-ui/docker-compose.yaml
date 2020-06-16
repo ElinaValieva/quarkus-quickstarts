@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+
+  blog-ui:
+    container_name: blog-front
+    build:
+      context: ..
+      target: 'develop-stage'
+    ports:
+      - 3000:3000
+    depends_on:
+      - blog-server
+    networks:
+      - tasks-network
+    command: /bin/sh -c "npm run serve"
+
+  blog-server:
+    image: elvaliev/blog-api
+    container_name: blog-server
+    ports:
+      - 8090:8090
+    networks:
+      - tasks-network
+
+networks:
+  tasks-network:
+    driver: bridge
