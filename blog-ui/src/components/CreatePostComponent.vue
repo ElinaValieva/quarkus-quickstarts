@@ -5,7 +5,7 @@
             <div class="main-wrapper">
                 <section class="cta-section theme-bg-light py-5">
                     <div class="container-fluid text-center">
-                        <h1>{{title}}</h1>
+                        <h1 style="padding-top: 3%">{{title}}</h1>
                         <form>
                             <div class="error text-danger font-weight-bold" v-if="!$v.title.required">Title is required
                             </div>
@@ -33,7 +33,7 @@
                                 <textarea id="text"
                                           v-model.trim="$v.text.$model"
                                           class="form-control mr-md-1"
-                                          rows="20"></textarea>
+                                          rows="19"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary" v-on:click="createPost" v-on:click.prevent
                                     :disabled="submitted">

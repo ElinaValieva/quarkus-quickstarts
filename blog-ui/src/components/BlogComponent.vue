@@ -4,7 +4,7 @@
         <div class="main-wrapper bg-white">
             <section class="cta-section theme-bg-light py-5">
                 <div class="container text-center">
-                    <h2>DevBlog - Life is for sharing</h2>
+                    <h2 style="padding-top: 3%">DevBlog - Life is for sharing</h2>
                     <form class="signup-form form-inline justify-content-center pt-3">
                         <div class="form-group">
                             <label class="sr-only" for="semail">Your email</label>

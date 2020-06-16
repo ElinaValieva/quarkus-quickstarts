@@ -28,14 +28,14 @@
                     <ul class="navbar-nav flex-column text-left">
                         <li class="nav-item active">
                             <a class="nav-link"><i class="fas fa-home fa-fw mr-2"></i>
-                                <router-link to="/blog" style="color: white">Blog Home</router-link>
+                                <router-link to="/blog" style="color: white; margin-left: 10px">Blog Home</router-link>
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">
                                 <i class="fas fa-bookmark fa-fw mr-2"></i>
-                                <router-link to="/blog/post" style="color: white">Create post</router-link>
+                                <router-link to="/blog/post" style="color: white; margin-left: 10px">Create post</router-link>
                             </a>
                         </li>
                     </ul>
