@@ -13,7 +13,7 @@
                     <input class="form-control" type="password" placeholder="password" v-model="password" required/>
                 </label>
             </div>
-            <button class="btn btn-success form-button" :disabled="submitted">LOGIN</button>
+            <button class="btn btn-primary form-button" :disabled="submitted">LOGIN</button>
             <a class="form-link">
                 <router-link to="/registration">Sing up?</router-link>
             </a>

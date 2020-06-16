@@ -4,7 +4,7 @@
         <div>
             <div class="main-wrapper">
                 <section class="cta-section theme-bg-light py-5">
-                    <div class="container text-center">
+                    <div class="container-fluid text-center">
                         <h1>{{title}}</h1>
                         <form>
                             <div class="error text-danger font-weight-bold" v-if="!$v.title.required">Title is required
