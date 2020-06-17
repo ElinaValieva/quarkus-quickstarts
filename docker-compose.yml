@@ -1,10 +1,10 @@
-version: '3.7'
+version: '3.8'
 services:
 
   blog-ui:
     container_name: blog-front
     build:
-      context: .
+      context: blog-ui
       target: 'develop-stage'
     ports:
       - 3000:3000

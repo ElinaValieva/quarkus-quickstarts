@@ -1,6 +1,8 @@
 # Quarkus QuickStart Project - Simple Blog 
 ![Java CI with Gradle](https://github.com/ElinaValieva/quarkus-blog-app/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)
 ![Update Docker Hub Description](https://github.com/ElinaValieva/quarkus-quickstarts/workflows/Update%20Docker%20Hub%20Description/badge.svg)
+[![Quarkus](https://img.shields.io/badge/quarkus-1.4.1-yellow.svg)](https://quarkus.io/)
+
 > Simple blog api with Quarkus - the Supersonic Subatomic Java Framework. 
  
 &nbsp;
@@ -39,9 +41,15 @@ Without GraalVM:
 ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
 ```
 #### Docker run
-```console
+Run server:
+```batch
 docker run -p 8090:8090 elvaliev/blog-api
 ```
+Run application with the UI:
+```batch
+docker-compose up
+```
+
 #### OpenApi and Health Check
 Application support open api - swagger and health check
 
@@ -51,7 +59,7 @@ Application support open api - swagger and health check
 Application supports multiple Dockerfiles with different extentions `.jvm`, `.multistage` and `.native`. Extention `.jvm` used in `quarkus-container-image-docker` in packaging with next push to docker registry. 
 
 Specify Dockerfile `native` or `multistage` build in command parameter with option `-f` and run image: 
-```console
+```batch
 docker build -t blog-api -f src/main/docker/Dockerfile.multistage .
 
 docker run -i --rm -p 8090:8090 blog-api
@@ -80,19 +88,22 @@ To push a container image for your project, quarkus.container-image.push=true ne
 &nbsp;
 ## Openshift deployment :triangular_flag_on_post:
 Deployment using **kubernetes template**:
-```console
+```batch
 oc create -f build/kubernetes/openshift.yml
 
 oc tag elvaliev/blog-api blog:1.0.0-SNAPSHOT
 ```
+
+> Note: from version `1.5.1` use for tagging image stream: `latest` version instead of `1.0.0-SNAPSHOT`
+
 Deployment using **docker image**:
-```console
+```batch
 oc new-app elvaliev/blog-api:latest
 
 oc expose svc/blog-api
 ```
 Deployment using **template**:
-```console
+```batch
 oc tag elvaliev/blog-api:latest
 
 oc process NAMESPACE_NAME=<OPENSHIFT-PROJECT> \
@@ -109,7 +120,7 @@ Enable property `awsLambdaEnabled = true` when you package `jar`
 ./gradlew -PawsLambdaEnabled=true quarkusBuild
 ```
 For native build use template `build/sam.native.yaml`. 
-```console
+```batch
 sam local start-api --template build/sam.jvm.yaml
 
 sam package --template-file build/sam.jvm.yaml --output-template-file packaged.yaml --s3-bucket <YOUR_S3_BUCKET>

@@ -3,7 +3,7 @@ FROM node:lts-alpine as develop-stage
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY .. .
+COPY src ./src/
 
 # build stage
 FROM develop-stage as build-stage
