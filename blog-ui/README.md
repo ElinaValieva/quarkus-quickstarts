@@ -1,5 +1,5 @@
 # Vue front-end application for Quarkus QuickStart Blog ![Node.js CI](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui/workflows/Node.js%20CI/badge.svg?branch=master)
-![](https://github.com/ElinaValieva/quarkus-quickstarts-blog-ui/blob/master/img.gif)
+![](https://github.com/ElinaValieva/quarkus-quickstarts/blob/master/blog-ui/img.gif)
 &nbsp;
 ## Project setup :hammer:
 #### Setup project:

@@ -25,7 +25,7 @@
                     <input class="form-control" type="password" placeholder="password" v-model="password" required/>
                 </label>
             </div>
-            <button class="btn btn-success form-button" :disabled="submitted">SING IN</button>
+            <button class="btn btn-primary form-button" :disabled="submitted">SING IN</button>
             <a class="form-link">
                 <router-link to="/login">Sing in?</router-link>
             </a>
